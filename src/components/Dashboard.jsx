@@ -1,12 +1,25 @@
 import { useState, useEffect } from 'react'
-import { Settings, Download, Plus, Pencil, Trash2, Clock, Calendar, Briefcase } from 'lucide-react'
+import { Settings, Download, Plus, Pencil, Trash2, Clock, Calendar, Briefcase, Loader2 } from 'lucide-react'
+import DOMPurify from 'dompurify'
+
+// XSS Sanitization helper
+function sanitizeHTML(dirty) {
+  if (typeof dirty !== 'string') return ''
+  return DOMPurify.sanitize(dirty, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] })
+}
 
 function Dashboard({ onNavigate }) {
   const [entries, setEntries] = useState([])
   const [presets, setPresets] = useState({ features: [], activities: [] })
   const [settings, setSettings] = useState({ Name: '', Department: '', Position: '' })
-  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingId, setEditingId] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [loading, setLoading] = useState({
+    entries: false,
+    save: false,
+    delete: null // stores id being deleted
+  })
+  const [error, setError] = useState(null)
   
   // Form state
   const [formData, setFormData] = useState({
@@ -26,18 +39,31 @@ function Dashboard({ onNavigate }) {
   }, [])
 
   const fetchEntries = async () => {
+    setLoading(prev => ({ ...prev, entries: true }))
+    setError(null)
     try {
       const res = await fetch('/api/timesheet')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch entries')
+      }
       const data = await res.json()
       setEntries(data)
     } catch (error) {
       console.error('Error fetching entries:', error)
+      setError('ไม่สามารถโหลดข้อมูลได้: ' + error.message)
+    } finally {
+      setLoading(prev => ({ ...prev, entries: false }))
     }
   }
 
   const fetchPresets = async () => {
     try {
       const res = await fetch('/api/presets')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch presets')
+      }
       const data = await res.json()
       setPresets(data)
     } catch (error) {
@@ -48,6 +74,10 @@ function Dashboard({ onNavigate }) {
   const fetchSettings = async () => {
     try {
       const res = await fetch('/api/settings')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch settings')
+      }
       const data = await res.json()
       setSettings(data)
     } catch (error) {
@@ -62,14 +92,39 @@ function Dashboard({ onNavigate }) {
   const remainingMinutes = totalMinutes % 60
   const totalDays = (totalHoursAdjusted + remainingMinutes / 60) / 8
 
+  const validateForm = () => {
+    const errors = []
+    
+    if (!formData.Date) errors.push('กรุณาระบุวันที่')
+    if (!formData.Feature) errors.push('กรุณาเลือก Feature')
+    if (!formData.Activity) errors.push('กรุณาเลือก Activity')
+    
+    const hours = parseInt(formData.Hours)
+    if (isNaN(hours) || hours < 0 || hours > 23) errors.push('ชั่วโมงต้องอยู่ระหว่าง 0-23')
+    
+    const minutes = parseInt(formData.Minutes) || 0
+    if (minutes < 0 || minutes > 59) errors.push('นาทีต้องอยู่ระหว่าง 0-59')
+    
+    if (errors.length > 0) {
+      alert(errors.join('\n'))
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    const url = editingIndex !== null 
-      ? `/api/timesheet/${editingIndex}` 
+    if (!validateForm()) return
+    
+    setLoading(prev => ({ ...prev, save: true }))
+    setError(null)
+    
+    const url = editingId !== null 
+      ? `/api/timesheet/${editingId}` 
       : '/api/timesheet'
     
-    const method = editingIndex !== null ? 'PUT' : 'POST'
+    const method = editingId !== null ? 'PUT' : 'POST'
     
     try {
       const res = await fetch(url, {
@@ -78,19 +133,25 @@ function Dashboard({ onNavigate }) {
         body: JSON.stringify(formData)
       })
       
-      if (res.ok) {
-        resetForm()
-        fetchEntries()
-        setShowForm(false)
-        setEditingIndex(null)
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || data.details?.map(d => d.message).join(', ') || 'Failed to save')
       }
+      
+      resetForm()
+      await fetchEntries()
+      setShowForm(false)
+      setEditingId(null)
     } catch (error) {
       console.error('Error saving entry:', error)
+      setError('บันทึกไม่สำเร็จ: ' + error.message)
+    } finally {
+      setLoading(prev => ({ ...prev, save: false }))
     }
   }
 
-  const handleEdit = (index) => {
-    const entry = entries[index]
+  const handleEdit = (entry) => {
     setFormData({
       Date: entry.Date,
       Feature: entry.Feature,
@@ -99,20 +160,32 @@ function Dashboard({ onNavigate }) {
       Minutes: entry.Minutes,
       Note: entry.Note || ''
     })
-    setEditingIndex(index)
+    setEditingId(entry.Id)
     setShowForm(true)
+    setError(null)
   }
 
-  const handleDelete = async (index) => {
+  const handleDelete = async (id) => {
     if (!confirm('ยืนยันการลบรายการนี้?')) return
     
+    setLoading(prev => ({ ...prev, delete: id }))
+    setError(null)
+    
     try {
-      const res = await fetch(`/api/timesheet/${index}`, { method: 'DELETE' })
-      if (res.ok) {
-        fetchEntries()
+      const res = await fetch(`/api/timesheet/${id}`, { method: 'DELETE' })
+      
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to delete')
       }
+      
+      await fetchEntries()
     } catch (error) {
       console.error('Error deleting entry:', error)
+      setError('ลบไม่สำเร็จ: ' + error.message)
+    } finally {
+      setLoading(prev => ({ ...prev, delete: null }))
     }
   }
 
@@ -129,6 +202,19 @@ function Dashboard({ onNavigate }) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg flex items-center gap-2">
+          <span className="font-medium">⚠️ {error}</span>
+          <button 
+            onClick={() => setError(null)} 
+            className="ml-auto text-red-600 hover:text-red-800"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+      
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
@@ -137,13 +223,14 @@ function Dashboard({ onNavigate }) {
             Timesheet System
           </h1>
           <p className="page-subtitle">
-            {settings.Name ? `${settings.Name} - ${settings.Department || 'No Department'}` : 'ยังไม่ได้ตั้งค่าข้อมูลส่วนตัว'}
+            {settings.Name ? `${sanitizeHTML(settings.Name)} - ${sanitizeHTML(settings.Department || 'No Department')}` : 'ยังไม่ได้ตั้งค่าข้อมูลส่วนตัว'}
           </p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={() => onNavigate('settings')}
             className="btn-secondary flex items-center gap-2"
+            disabled={loading.entries}
           >
             <Settings className="w-4 h-4" />
             ตั้งค่า
@@ -151,6 +238,7 @@ function Dashboard({ onNavigate }) {
           <button
             onClick={() => onNavigate('export')}
             className="btn-secondary flex items-center gap-2"
+            disabled={loading.entries}
           >
             <Download className="w-4 h-4" />
             Export
@@ -164,7 +252,13 @@ function Dashboard({ onNavigate }) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-500 text-sm">รวมชั่วโมง</p>
-              <p className="text-3xl font-bold text-gray-800">{totalHoursAdjusted}h {remainingMinutes}m</p>
+              <p className="text-3xl font-bold text-gray-800">
+                {loading.entries ? (
+                  <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                ) : (
+                  `${totalHoursAdjusted}h ${remainingMinutes}m`
+                )}
+              </p>
             </div>
             <Clock className="w-10 h-10 text-blue-500 opacity-50" />
           </div>
@@ -174,7 +268,13 @@ function Dashboard({ onNavigate }) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-500 text-sm">รวมวัน (8 ชม./วัน)</p>
-              <p className="text-3xl font-bold text-gray-800">{totalDays.toFixed(2)} วัน</p>
+              <p className="text-3xl font-bold text-gray-800">
+                {loading.entries ? (
+                  <Loader2 className="w-8 h-8 animate-spin text-green-500" />
+                ) : (
+                  `${totalDays.toFixed(2)} วัน`
+                )}
+              </p>
             </div>
             <Calendar className="w-10 h-10 text-green-500 opacity-50" />
           </div>
@@ -184,7 +284,13 @@ function Dashboard({ onNavigate }) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-500 text-sm">จำนวนรายการ</p>
-              <p className="text-3xl font-bold text-gray-800">{entries.length} รายการ</p>
+              <p className="text-3xl font-bold text-gray-800">
+                {loading.entries ? (
+                  <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                ) : (
+                  `${entries.length} รายการ`
+                )}
+              </p>
             </div>
             <Briefcase className="w-10 h-10 text-purple-500 opacity-50" />
           </div>
@@ -194,10 +300,22 @@ function Dashboard({ onNavigate }) {
       {/* Add Entry Button */}
       <div className="mb-6">
         <button
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => {
+            setShowForm(!showForm)
+            if (showForm) {
+              resetForm()
+              setEditingId(null)
+            }
+            setError(null)
+          }}
           className="btn-primary flex items-center gap-2"
+          disabled={loading.save}
         >
-          <Plus className="w-4 h-4" />
+          {loading.save ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Plus className="w-4 h-4" />
+          )}
           {showForm ? 'ยกเลิก' : 'ลงเวลาใหม่'}
         </button>
       </div>
@@ -206,7 +324,7 @@ function Dashboard({ onNavigate }) {
       {showForm && (
         <div className="card mb-8">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">
-            {editingIndex !== null ? 'แก้ไขรายการ' : 'ลงเวลาใหม่'}
+            {editingId !== null ? 'แก้ไขรายการ' : 'ลงเวลาใหม่'}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -218,6 +336,7 @@ function Dashboard({ onNavigate }) {
                   value={formData.Date}
                   onChange={(e) => setFormData({...formData, Date: e.target.value})}
                   className="input-field"
+                  disabled={loading.save}
                 />
               </div>
 
@@ -228,10 +347,11 @@ function Dashboard({ onNavigate }) {
                   value={formData.Feature}
                   onChange={(e) => setFormData({...formData, Feature: e.target.value})}
                   className="input-field"
+                  disabled={loading.save}
                 >
                   <option value="">เลือก Feature</option>
                   {presets.features.map((f, i) => (
-                    <option key={i} value={f}>{f}</option>
+                    <option key={i} value={f}>{sanitizeHTML(f)}</option>
                   ))}
                 </select>
               </div>
@@ -243,10 +363,11 @@ function Dashboard({ onNavigate }) {
                   value={formData.Activity}
                   onChange={(e) => setFormData({...formData, Activity: e.target.value})}
                   className="input-field"
+                  disabled={loading.save}
                 >
                   <option value="">เลือก Activity</option>
                   {presets.activities.map((a, i) => (
-                    <option key={i} value={a}>{a}</option>
+                    <option key={i} value={a}>{sanitizeHTML(a)}</option>
                   ))}
                 </select>
               </div>
@@ -262,6 +383,7 @@ function Dashboard({ onNavigate }) {
                     onChange={(e) => setFormData({...formData, Hours: e.target.value})}
                     className="input-field"
                     placeholder="0"
+                    disabled={loading.save}
                   />
                 </div>
                 <div>
@@ -274,6 +396,7 @@ function Dashboard({ onNavigate }) {
                     onChange={(e) => setFormData({...formData, Minutes: e.target.value})}
                     className="input-field"
                     placeholder="0"
+                    disabled={loading.save}
                   />
                 </div>
               </div>
@@ -286,22 +409,32 @@ function Dashboard({ onNavigate }) {
                   onChange={(e) => setFormData({...formData, Note: e.target.value})}
                   className="input-field"
                   placeholder="รายละเอียดเพิ่มเติม..."
+                  maxLength={500}
+                  disabled={loading.save}
                 />
+                <p className="text-xs text-gray-500 mt-1">{formData.Note.length}/500 ตัวอักษร</p>
               </div>
             </div>
 
             <div className="flex gap-3 pt-2">
-              <button type="submit" className="btn-primary">
-                {editingIndex !== null ? 'บันทึกการแก้ไข' : 'บันทึก'}
+              <button 
+                type="submit" 
+                className="btn-primary flex items-center gap-2"
+                disabled={loading.save}
+              >
+                {loading.save && <Loader2 className="w-4 h-4 animate-spin" />}
+                {editingId !== null ? 'บันทึกการแก้ไข' : 'บันทึก'}
               </button>
               <button
                 type="button"
                 onClick={() => {
                   resetForm()
-                  setEditingIndex(null)
+                  setEditingId(null)
                   setShowForm(false)
+                  setError(null)
                 }}
                 className="btn-secondary"
+                disabled={loading.save}
               >
                 ยกเลิก
               </button>
@@ -314,7 +447,12 @@ function Dashboard({ onNavigate }) {
       <div className="card">
         <h3 className="text-lg font-semibold mb-4 text-gray-800">รายการทั้งหมด</h3>
         
-        {entries.length === 0 ? (
+        {loading.entries ? (
+          <div className="text-center py-12 text-gray-400">
+            <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-blue-500" />
+            <p>กำลังโหลดข้อมูล...</p>
+          </div>
+        ) : entries.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
             <Clock className="w-16 h-16 mx-auto mb-4 opacity-30" />
             <p>ยังไม่มีรายการ</p>
@@ -334,32 +472,38 @@ function Dashboard({ onNavigate }) {
                 </tr>
               </thead>
               <tbody>
-                {entries.map((entry, index) => (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4">{entry.Date}</td>
-                    <td className="py-3 px-4">{entry.Feature}</td>
-                    <td className="py-3 px-4">{entry.Activity}</td>
+                {entries.map((entry) => (
+                  <tr key={entry.Id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-3 px-4">{sanitizeHTML(entry.Date)}</td>
+                    <td className="py-3 px-4">{sanitizeHTML(entry.Feature)}</td>
+                    <td className="py-3 px-4">{sanitizeHTML(entry.Activity)}</td>
                     <td className="py-3 px-4 text-center">
                       <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">
-                        {entry.Hours}h {entry.Minutes}m
+                        {sanitizeHTML(entry.Hours)}h {sanitizeHTML(entry.Minutes)}m
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-gray-500">{entry.Note || '-'}</td>
+                    <td className="py-3 px-4 text-gray-500">{entry.Note ? sanitizeHTML(entry.Note) : '-'}</td>
                     <td className="py-3 px-4">
                       <div className="flex justify-center gap-2">
                         <button
-                          onClick={() => handleEdit(index)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          onClick={() => handleEdit(entry)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors disabled:opacity-50"
                           title="แก้ไข"
+                          disabled={loading.delete === entry.Id || loading.save}
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => handleDelete(index)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          onClick={() => handleDelete(entry.Id)}
+                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
                           title="ลบ"
+                          disabled={loading.delete === entry.Id || loading.save}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {loading.delete === entry.Id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
                         </button>
                       </div>
                     </td>

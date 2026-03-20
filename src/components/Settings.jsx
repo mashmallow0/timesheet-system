@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Save, Plus, Pencil, Trash2, User, Building2, Briefcase, FolderOpen, ListTodo } from 'lucide-react'
+import { ArrowLeft, Save, Plus, Pencil, Trash2, User, Building2, Briefcase, FolderOpen, ListTodo, Loader2 } from 'lucide-react'
+import DOMPurify from 'dompurify'
+
+// XSS Sanitization helper
+function sanitizeHTML(dirty) {
+  if (typeof dirty !== 'string') return ''
+  return DOMPurify.sanitize(dirty, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] })
+}
 
 function Settings({ onNavigate }) {
   const [settings, setSettings] = useState({
@@ -20,6 +27,16 @@ function Settings({ onNavigate }) {
   const [editFeatureValue, setEditFeatureValue] = useState('')
   const [editActivityValue, setEditActivityValue] = useState('')
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState({
+    settings: false,
+    presets: false,
+    saveSettings: false,
+    addFeature: false,
+    addActivity: false,
+    deleteFeature: null, // stores index being deleted
+    deleteActivity: null // stores index being deleted
+  })
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchSettings()
@@ -27,8 +44,14 @@ function Settings({ onNavigate }) {
   }, [])
 
   const fetchSettings = async () => {
+    setLoading(prev => ({ ...prev, settings: true }))
+    setError(null)
     try {
       const res = await fetch('/api/settings')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch settings')
+      }
       const data = await res.json()
       setSettings({
         Name: data.Name || '',
@@ -37,20 +60,32 @@ function Settings({ onNavigate }) {
       })
     } catch (error) {
       console.error('Error fetching settings:', error)
+      setError('โหลดข้อมูลไม่สำเร็จ: ' + error.message)
+    } finally {
+      setLoading(prev => ({ ...prev, settings: false }))
     }
   }
 
   const fetchPresets = async () => {
+    setLoading(prev => ({ ...prev, presets: true }))
     try {
       const res = await fetch('/api/presets')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch presets')
+      }
       const data = await res.json()
       setPresets(data)
     } catch (error) {
       console.error('Error fetching presets:', error)
+    } finally {
+      setLoading(prev => ({ ...prev, presets: false }))
     }
   }
 
   const saveSettings = async () => {
+    setLoading(prev => ({ ...prev, saveSettings: true }))
+    setError(null)
     try {
       const res = await fetch('/api/settings', {
         method: 'POST',
@@ -58,16 +93,24 @@ function Settings({ onNavigate }) {
         body: JSON.stringify(settings)
       })
       
-      if (res.ok) {
-        showMessage('บันทึกข้อมูลสำเร็จ!', 'success')
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || data.details?.map(d => d.message).join(', ') || 'Failed to save')
       }
+      
+      showMessage('บันทึกข้อมูลสำเร็จ!', 'success')
     } catch (error) {
       console.error('Error saving settings:', error)
-      showMessage('เกิดข้อผิดพลาด', 'error')
+      setError('บันทึกไม่สำเร็จ: ' + error.message)
+      showMessage('เกิดข้อผิดพลาด: ' + error.message, 'error')
+    } finally {
+      setLoading(prev => ({ ...prev, saveSettings: false }))
     }
   }
 
   const savePresets = async (newPresets) => {
+    setLoading(prev => ({ ...prev, presets: true }))
     try {
       const res = await fetch('/api/presets', {
         method: 'POST',
@@ -75,48 +118,79 @@ function Settings({ onNavigate }) {
         body: JSON.stringify(newPresets)
       })
       
-      if (res.ok) {
-        setPresets(newPresets)
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || data.details?.map(d => d.message).join(', ') || 'Failed to save')
       }
+      
+      setPresets(newPresets)
     } catch (error) {
       console.error('Error saving presets:', error)
+      showMessage('เกิดข้อผิดพลาด: ' + error.message, 'error')
+    } finally {
+      setLoading(prev => ({ ...prev, presets: false }))
     }
   }
 
-  const addFeature = () => {
-    if (!newFeature.trim()) return
+  const addFeature = async () => {
+    const trimmed = newFeature.trim()
+    if (!trimmed) return
+    if (trimmed.length > 100) {
+      showMessage('Feature ต้องไม่เกิน 100 ตัวอักษร', 'error')
+      return
+    }
+    
+    setLoading(prev => ({ ...prev, addFeature: true }))
     const updated = {
       ...presets,
-      features: [...presets.features, newFeature.trim()]
+      features: [...presets.features, trimmed]
     }
-    savePresets(updated)
+    await savePresets(updated)
     setNewFeature('')
+    setLoading(prev => ({ ...prev, addFeature: false }))
   }
 
-  const addActivity = () => {
-    if (!newActivity.trim()) return
+  const addActivity = async () => {
+    const trimmed = newActivity.trim()
+    if (!trimmed) return
+    if (trimmed.length > 100) {
+      showMessage('Activity ต้องไม่เกิน 100 ตัวอักษร', 'error')
+      return
+    }
+    
+    setLoading(prev => ({ ...prev, addActivity: true }))
     const updated = {
       ...presets,
-      activities: [...presets.activities, newActivity.trim()]
+      activities: [...presets.activities, trimmed]
     }
-    savePresets(updated)
+    await savePresets(updated)
     setNewActivity('')
+    setLoading(prev => ({ ...prev, addActivity: false }))
   }
 
-  const deleteFeature = (index) => {
+  const deleteFeature = async (index) => {
+    if (!confirm('ยืนยันการลบ Feature นี้?')) return
+    
+    setLoading(prev => ({ ...prev, deleteFeature: index }))
     const updated = {
       ...presets,
       features: presets.features.filter((_, i) => i !== index)
     }
-    savePresets(updated)
+    await savePresets(updated)
+    setLoading(prev => ({ ...prev, deleteFeature: null }))
   }
 
-  const deleteActivity = (index) => {
+  const deleteActivity = async (index) => {
+    if (!confirm('ยืนยันการลบ Activity นี้?')) return
+    
+    setLoading(prev => ({ ...prev, deleteActivity: index }))
     const updated = {
       ...presets,
       activities: presets.activities.filter((_, i) => i !== index)
     }
-    savePresets(updated)
+    await savePresets(updated)
+    setLoading(prev => ({ ...prev, deleteActivity: null }))
   }
 
   const startEditFeature = (index, value) => {
@@ -129,24 +203,36 @@ function Settings({ onNavigate }) {
     setEditActivityValue(value)
   }
 
-  const saveEditFeature = () => {
-    if (!editFeatureValue.trim()) return
+  const saveEditFeature = async () => {
+    const trimmed = editFeatureValue.trim()
+    if (!trimmed) return
+    if (trimmed.length > 100) {
+      showMessage('Feature ต้องไม่เกิน 100 ตัวอักษร', 'error')
+      return
+    }
+    
     const updated = {
       ...presets,
-      features: presets.features.map((f, i) => i === editingFeature ? editFeatureValue.trim() : f)
+      features: presets.features.map((f, i) => i === editingFeature ? trimmed : f)
     }
-    savePresets(updated)
+    await savePresets(updated)
     setEditingFeature(null)
     setEditFeatureValue('')
   }
 
-  const saveEditActivity = () => {
-    if (!editActivityValue.trim()) return
+  const saveEditActivity = async () => {
+    const trimmed = editActivityValue.trim()
+    if (!trimmed) return
+    if (trimmed.length > 100) {
+      showMessage('Activity ต้องไม่เกิน 100 ตัวอักษร', 'error')
+      return
+    }
+    
     const updated = {
       ...presets,
-      activities: presets.activities.map((a, i) => i === editingActivity ? editActivityValue.trim() : a)
+      activities: presets.activities.map((a, i) => i === editingActivity ? trimmed : a)
     }
-    savePresets(updated)
+    await savePresets(updated)
     setEditingActivity(null)
     setEditActivityValue('')
   }
@@ -158,6 +244,19 @@ function Settings({ onNavigate }) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg flex items-center gap-2">
+          <span className="font-medium">⚠️ {error}</span>
+          <button 
+            onClick={() => setError(null)} 
+            className="ml-auto text-red-600 hover:text-red-800"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div className="flex items-center gap-4">
@@ -200,7 +299,10 @@ function Settings({ onNavigate }) {
               onChange={(e) => setSettings({...settings, Name: e.target.value})}
               className="input-field"
               placeholder="ชื่อ-นามสกุล"
+              maxLength={100}
+              disabled={loading.saveSettings}
             />
+            <p className="text-xs text-gray-500 mt-1">{settings.Name.length}/100</p>
           </div>
 
           <div>
@@ -214,7 +316,10 @@ function Settings({ onNavigate }) {
               onChange={(e) => setSettings({...settings, Department: e.target.value})}
               className="input-field"
               placeholder="แผนก/ฝ่าย"
+              maxLength={100}
+              disabled={loading.saveSettings}
             />
+            <p className="text-xs text-gray-500 mt-1">{settings.Department.length}/100</p>
           </div>
 
           <div>
@@ -228,15 +333,23 @@ function Settings({ onNavigate }) {
               onChange={(e) => setSettings({...settings, Position: e.target.value})}
               className="input-field"
               placeholder="ตำแหน่งงาน"
+              maxLength={100}
+              disabled={loading.saveSettings}
             />
+            <p className="text-xs text-gray-500 mt-1">{settings.Position.length}/100</p>
           </div>
         </div>
 
         <button
           onClick={saveSettings}
           className="btn-primary flex items-center gap-2"
+          disabled={loading.saveSettings}
         >
-          <Save className="w-4 h-4" />
+          {loading.saveSettings ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Save className="w-4 h-4" />
+          )}
           บันทึกข้อมูลส่วนตัว
         </button>
       </div>
@@ -258,12 +371,19 @@ function Settings({ onNavigate }) {
               onKeyPress={(e) => e.key === 'Enter' && addFeature()}
               className="input-field flex-1"
               placeholder="เพิ่ม Feature ใหม่..."
+              maxLength={100}
+              disabled={loading.addFeature}
             />
             <button
               onClick={addFeature}
               className="btn-primary p-2"
+              disabled={loading.addFeature || !newFeature.trim()}
             >
-              <Plus className="w-5 h-5" />
+              {loading.addFeature ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <Plus className="w-5 h-5" />
+              )}
             </button>
           </div>
 
@@ -282,6 +402,7 @@ function Settings({ onNavigate }) {
                         onKeyPress={(e) => e.key === 'Enter' && saveEditFeature()}
                         className="input-field flex-1 mr-2"
                         autoFocus
+                        maxLength={100}
                       />
                       <button
                         onClick={saveEditFeature}
@@ -292,19 +413,25 @@ function Settings({ onNavigate }) {
                     </>
                   ) : (
                     <>
-                      <span className="flex-1">{feature}</span>
+                      <span className="flex-1">{sanitizeHTML(feature)}</span>
                       <div className="flex gap-1">
                         <button
                           onClick={() => startEditFeature(index, feature)}
                           className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                          disabled={loading.deleteFeature === index}
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => deleteFeature(index)}
                           className="p-1 text-red-500 hover:bg-red-50 rounded"
+                          disabled={loading.deleteFeature === index}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {loading.deleteFeature === index ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
                         </button>
                       </div>
                     </>
@@ -330,12 +457,19 @@ function Settings({ onNavigate }) {
               onKeyPress={(e) => e.key === 'Enter' && addActivity()}
               className="input-field flex-1"
               placeholder="เพิ่ม Activity ใหม่..."
+              maxLength={100}
+              disabled={loading.addActivity}
             />
             <button
               onClick={addActivity}
               className="btn-primary p-2"
+              disabled={loading.addActivity || !newActivity.trim()}
             >
-              <Plus className="w-5 h-5" />
+              {loading.addActivity ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <Plus className="w-5 h-5" />
+              )}
             </button>
           </div>
 
@@ -354,6 +488,7 @@ function Settings({ onNavigate }) {
                         onKeyPress={(e) => e.key === 'Enter' && saveEditActivity()}
                         className="input-field flex-1 mr-2"
                         autoFocus
+                        maxLength={100}
                       />
                       <button
                         onClick={saveEditActivity}
@@ -364,19 +499,25 @@ function Settings({ onNavigate }) {
                     </>
                   ) : (
                     <>
-                      <span className="flex-1">{activity}</span>
+                      <span className="flex-1">{sanitizeHTML(activity)}</span>
                       <div className="flex gap-1">
                         <button
                           onClick={() => startEditActivity(index, activity)}
                           className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                          disabled={loading.deleteActivity === index}
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => deleteActivity(index)}
                           className="p-1 text-red-500 hover:bg-red-50 rounded"
+                          disabled={loading.deleteActivity === index}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {loading.deleteActivity === index ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
                         </button>
                       </div>
                     </>

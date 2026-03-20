@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Download, FileSpreadsheet, Calendar, Eye } from 'lucide-react'
+import { ArrowLeft, Download, FileSpreadsheet, Calendar, Eye, Loader2 } from 'lucide-react'
+import DOMPurify from 'dompurify'
+
+// XSS Sanitization helper
+function sanitizeHTML(dirty) {
+  if (typeof dirty !== 'string') return ''
+  return DOMPurify.sanitize(dirty, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] })
+}
 
 function Export({ onNavigate }) {
   const [entries, setEntries] = useState([])
@@ -7,6 +14,11 @@ function Export({ onNavigate }) {
   const [selectedMonth, setSelectedMonth] = useState('')
   const [selectedYear, setSelectedYear] = useState('')
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState({
+    entries: false,
+    download: false
+  })
+  const [error, setError] = useState(null)
 
   // Generate year options (current year - 2 to + 2)
   const currentYear = new Date().getFullYear()
@@ -41,12 +53,21 @@ function Export({ onNavigate }) {
   }, [entries, selectedMonth, selectedYear])
 
   const fetchEntries = async () => {
+    setLoading(prev => ({ ...prev, entries: true }))
+    setError(null)
     try {
       const res = await fetch('/api/timesheet')
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.error || 'Failed to fetch entries')
+      }
       const data = await res.json()
       setEntries(data)
     } catch (error) {
       console.error('Error fetching entries:', error)
+      setError('โหลดข้อมูลไม่สำเร็จ: ' + error.message)
+    } finally {
+      setLoading(prev => ({ ...prev, entries: false }))
     }
   }
 
@@ -57,6 +78,7 @@ function Export({ onNavigate }) {
     }
 
     const filtered = entries.filter(entry => {
+      if (!entry.Date) return false
       const entryDate = new Date(entry.Date)
       return entryDate.getFullYear() == selectedYear && (entryDate.getMonth() + 1) == selectedMonth
     })
@@ -70,11 +92,15 @@ function Export({ onNavigate }) {
       return
     }
 
+    setLoading(prev => ({ ...prev, download: true }))
+    setError(null)
+    
     try {
       const res = await fetch(`/api/export/${selectedYear}/${selectedMonth}`)
       
       if (!res.ok) {
-        throw new Error('Export failed')
+        const err = await res.json()
+        throw new Error(err.error || 'Export failed')
       }
 
       const blob = await res.blob()
@@ -90,7 +116,10 @@ function Export({ onNavigate }) {
       showMessage('ดาวน์โหลดสำเร็จ!', 'success')
     } catch (error) {
       console.error('Error downloading:', error)
+      setError('ดาวน์โหลดไม่สำเร็จ: ' + error.message)
       showMessage('เกิดข้อผิดพลาดในการดาวน์โหลด', 'error')
+    } finally {
+      setLoading(prev => ({ ...prev, download: false }))
     }
   }
 
@@ -108,6 +137,19 @@ function Export({ onNavigate }) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg flex items-center gap-2">
+          <span className="font-medium">⚠️ {error}</span>
+          <button 
+            onClick={() => setError(null)} 
+            className="ml-auto text-red-600 hover:text-red-800"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div className="flex items-center gap-4">
@@ -145,6 +187,7 @@ function Export({ onNavigate }) {
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
               className="input-field"
+              disabled={loading.entries}
             >
               <option value="">เลือกเดือน</option>
               {months.map(m => (
@@ -159,6 +202,7 @@ function Export({ onNavigate }) {
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
               className="input-field"
+              disabled={loading.entries}
             >
               <option value="">เลือกปี</option>
               {years.map(y => (
@@ -169,10 +213,14 @@ function Export({ onNavigate }) {
 
           <button
             onClick={handleDownload}
-            disabled={!selectedMonth || !selectedYear}
+            disabled={!selectedMonth || !selectedYear || loading.download || loading.entries}
             className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Download className="w-4 h-4" />
+            {loading.download ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Download className="w-4 h-4" />
+            )}
             ดาวน์โหลด Excel
           </button>
         </div>
@@ -188,18 +236,35 @@ function Export({ onNavigate }) {
             </h2>
             <div className="flex gap-4 text-sm">
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-                รวม: {totalHoursAdjusted}h {remainingMinutes}m
+                รวม: {loading.entries ? (
+                  <Loader2 className="w-4 h-4 animate-spin inline" />
+                ) : (
+                  `${totalHoursAdjusted}h ${remainingMinutes}m`
+                )}
               </span>
               <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-                {totalDays.toFixed(2)} วัน
+                {loading.entries ? (
+                  <Loader2 className="w-4 h-4 animate-spin inline" />
+                ) : (
+                  `${totalDays.toFixed(2)} วัน`
+                )}
               </span>
               <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
-                {filteredEntries.length} รายการ
+                {loading.entries ? (
+                  <Loader2 className="w-4 h-4 animate-spin inline" />
+                ) : (
+                  `${filteredEntries.length} รายการ`
+                )}
               </span>
             </div>
           </div>
 
-          {filteredEntries.length === 0 ? (
+          {loading.entries ? (
+            <div className="text-center py-12 text-gray-400">
+              <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-blue-500" />
+              <p>กำลังโหลดข้อมูล...</p>
+            </div>
+          ) : filteredEntries.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 opacity-30" />
               <p>ไม่มีข้อมูลในเดือนที่เลือก</p>
@@ -218,16 +283,16 @@ function Export({ onNavigate }) {
                 </thead>
                 <tbody>
                   {filteredEntries.map((entry, index) => (
-                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-3 px-4">{entry.Date}</td>
-                      <td className="py-3 px-4">{entry.Feature}</td>
-                      <td className="py-3 px-4">{entry.Activity}</td>
+                    <tr key={entry.Id || index} className="border-b border-gray-100 hover:bg-gray-50">
+                      <td className="py-3 px-4">{sanitizeHTML(entry.Date)}</td>
+                      <td className="py-3 px-4">{sanitizeHTML(entry.Feature)}</td>
+                      <td className="py-3 px-4">{sanitizeHTML(entry.Activity)}</td>
                       <td className="py-3 px-4 text-center">
                         <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">
-                          {entry.Hours}h {entry.Minutes}m
+                          {sanitizeHTML(entry.Hours)}h {sanitizeHTML(entry.Minutes)}m
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-gray-500">{entry.Note || '-'}</td>
+                      <td className="py-3 px-4 text-gray-500">{entry.Note ? sanitizeHTML(entry.Note) : '-'}</td>
                     </tr>
                   ))}
                 </tbody>
