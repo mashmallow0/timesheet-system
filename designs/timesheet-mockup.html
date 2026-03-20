@@ -3,77 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timesheet System - UX/UI Mockup</title>
+    <title>🌸 Timesheet System - Cute Theme 🎀</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .slide-in { animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+        body { 
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 50%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
+        .slide-in { animation: slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes slideIn { from { transform: translateY(20px) scale(0.95); opacity: 0; } to { transform: translateX(0) scale(1); opacity: 1; } }
         .dropdown-content { display: none; }
-        .dropdown-content.active { display: block; }
+        .dropdown-content.active { display: block; animation: fadeIn 0.2s ease; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         .modal { display: none; }
-        .modal.active { display: flex; }
-        .hover-lift { transition: transform 0.2s, box-shadow 0.2s; }
-        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15); }
-        .btn-press:active { transform: scale(0.98); }
+        .modal.active { display: flex; animation: fadeIn 0.2s ease; }
+        .hover-lift { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 30px rgba(236, 72, 153, 0.25); }
+        .btn-press:active { transform: scale(0.95); }
+        .cute-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(236, 72, 153, 0.1), 0 2px 8px rgba(0,0,0,0.05);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+        .cute-btn {
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .cute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .cute-input {
+            border-radius: 16px;
+            border: 2px solid #fce7f3;
+            transition: all 0.3s ease;
+            background: linear-gradient(to bottom, #fff, #fdf2f8);
+        }
+        .cute-input:focus {
+            border-color: #f472b6;
+            box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.2);
+            outline: none;
+        }
+        .cute-input:hover {
+            border-color: #f9a8d4;
+            background: white;
+        }
+        .nav-cute {
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .nav-cute.active {
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+        .nav-cute:not(.active):hover {
+            background: rgba(244, 114, 182, 0.1);
+            color: #ec4899;
+        }
+        .cute-badge {
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-weight: 600;
+        }
+        .gradient-pink { background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); }
+        .gradient-purple { background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%); }
+        .gradient-orange { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); }
+        .gradient-green { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
+        .gradient-blue { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
+        .gradient-mint { background: linear-gradient(135deg, #34d399 0%, #10b981 100%); }
+        .gradient-yellow { background: linear-gradient(135deg, #facc15 0%, #eab308 100%); }
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .table-cute tr {
+            transition: background 0.2s ease;
+        }
+        .table-cute tr:hover {
+            background: rgba(252, 231, 243, 0.5);
+        }
+        .emoji-bounce {
+            display: inline-block;
+            animation: bounce 1s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .page-cute {
+            background: white;
+            border-radius: 20px;
+            min-width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .page-cute.active {
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        }
+        .page-cute:not(.active):hover {
+            background: #fce7f3;
+            color: #ec4899;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen">
+<body class="text-gray-700">
 
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-white/80 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b-2 border-pink-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-18 py-2">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <i class="fas fa-clock text-white text-lg"></i>
+                        <div class="w-12 h-12 gradient-pink rounded-2xl flex items-center justify-center shadow-lg shadow-pink-300/50 floating">
+                            <span class="text-2xl">⏰</span>
                         </div>
-                        <span class="font-bold text-xl text-gray-900 tracking-tight">Timesheet</span>
+                        <div>
+                            <span class="font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 tracking-tight">Timesheet</span>
+                            <span class="text-xs text-pink-400 font-semibold ml-1">✨ Cute Edition</span>
+                        </div>
                     </div>
-                    <div class="hidden md:ml-10 md:flex md:space-x-1">
-                        <button onclick="showPage('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-blue-600 bg-blue-50 transition-all">
-                            <i class="fas fa-home mr-2"></i>Dashboard
+                    <div class="hidden md:ml-10 md:flex md:space-x-2">
+                        <button onclick="showPage('dashboard')" id="nav-dashboard" class="nav-cute active px-5 py-2.5 text-sm font-bold flex items-center gap-2">
+                            <span>🏠</span> Dashboard
                         </button>
-                        <button onclick="showPage('settings')" id="nav-settings" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-all">
-                            <i class="fas fa-cog mr-2"></i>Settings
+                        <button onclick="showPage('settings')" id="nav-settings" class="nav-cute px-5 py-2.5 text-sm font-bold text-gray-600 flex items-center gap-2">
+                            <span>⚙️</span> Settings
                         </button>
-                        <button onclick="showPage('export')" id="nav-export" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-all">
-                            <i class="fas fa-file-excel mr-2"></i>Export
+                        <button onclick="showPage('export')" id="nav-export" class="nav-cute px-5 py-2.5 text-sm font-bold text-gray-600 flex items-center gap-2">
+                            <span>📊</span> Export
                         </button>
                     </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
                     <div class="text-right hidden sm:block">
-                        <p class="text-sm font-medium text-gray-900">Art</p>
-                        <p class="text-xs text-gray-500">Developer</p>
+                        <p class="text-sm font-bold text-gray-800">Art 🌸</p>
+                        <p class="text-xs text-pink-400 font-semibold">Developer ✨</p>
                     </div>
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:shadow-lg transition-shadow">
-                        A
+                    <div class="w-12 h-12 gradient-purple rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-purple-300/50 cursor-pointer hover:scale-110 transition-transform">
+                        🐱
                     </div>
                 </div>
             </div>
         </div>
         <!-- Mobile Nav -->
-        <div class="md:hidden border-t border-gray-200 bg-white">
+        <div class="md:hidden border-t-2 border-pink-100 bg-white/90 backdrop-blur-sm">
             <div class="flex justify-around py-2">
-                <button onclick="showPage('dashboard')" class="mobile-nav-btn flex flex-col items-center p-2 text-blue-600" data-page="dashboard">
-                    <i class="fas fa-home text-lg"></i>
-                    <span class="text-xs mt-1">Dashboard</span>
+                <button onclick="showPage('dashboard')" class="mobile-nav-btn flex flex-col items-center p-3 text-pink-500" data-page="dashboard">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs mt-1 font-semibold">Home</span>
                 </button>
-                <button onclick="showPage('settings')" class="mobile-nav-btn flex flex-col items-center p-2 text-gray-500" data-page="settings">
-                    <i class="fas fa-cog text-lg"></i>
-                    <span class="text-xs mt-1">Settings</span>
+                <button onclick="showPage('settings')" class="mobile-nav-btn flex flex-col items-center p-3 text-gray-400" data-page="settings">
+                    <span class="text-xl">⚙️</span>
+                    <span class="text-xs mt-1 font-semibold">Settings</span>
                 </button>
-                <button onclick="showPage('export')" class="mobile-nav-btn flex flex-col items-center p-2 text-gray-500" data-page="export">
-                    <i class="fas fa-file-excel text-lg"></i>
-                    <span class="text-xs mt-1">Export</span>
+                <button onclick="showPage('export')" class="mobile-nav-btn flex flex-col items-center p-3 text-gray-400" data-page="export">
+                    <span class="text-xl">📊</span>
+                    <span class="text-xs mt-1 font-semibold">Export</span>
                 </button>
             </div>
         </div>
@@ -82,49 +197,68 @@
     <!-- DASHBOARD PAGE -->
     <div id="page-dashboard" class="page-content fade-in">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Welcome Banner -->
+            <div class="cute-card mb-6 p-6 relative overflow-hidden">
+                <div class="absolute top-2 right-4 text-4xl opacity-50 floating">🌸</div>
+                <div class="absolute bottom-2 right-20 text-2xl opacity-30 floating" style="animation-delay: 0.5s;">✨</div>
+                <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="emoji-bounce">👋</span> Good morning, Art!
+                </h1>
+                <p class="text-pink-500 font-medium mt-1">Ready to track your awesome work today? 💪✨</p>
+            </div>
+
             <!-- Summary Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Total Hours</p>
-                            <p class="text-3xl font-bold text-gray-900 mt-1">64 <span class="text-lg text-gray-400">hrs</span></p>
+                <div class="cute-card p-6 hover-lift relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-pink-100 rounded-full opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-gray-500 flex items-center gap-1">⏱️ Total Hours</p>
+                                <p class="text-4xl font-extrabold text-gray-800 mt-1">64 <span class="text-lg text-pink-400 font-bold">hrs</span></p>
+                            </div>
+                            <div class="w-16 h-16 gradient-pink rounded-2xl flex items-center justify-center shadow-lg shadow-pink-300/40">
+                                <span class="text-3xl">⏰</span>
+                            </div>
                         </div>
-                        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-clock text-blue-500 text-xl"></i>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full font-bold"><span class="mr-1">📈</span>12%</span>
+                            <span class="text-gray-400 ml-2 font-medium">vs last month</span>
                         </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-green-500 font-medium"><i class="fas fa-arrow-up mr-1"></i>12%</span>
-                        <span class="text-gray-400 ml-2">vs last month</span>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Total Days</p>
-                            <p class="text-3xl font-bold text-gray-900 mt-1">8 <span class="text-lg text-gray-400">days</span></p>
+                <div class="cute-card p-6 hover-lift relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-100 rounded-full opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-gray-500 flex items-center gap-1">📅 Total Days</p>
+                                <p class="text-4xl font-extrabold text-gray-800 mt-1">8 <span class="text-lg text-purple-400 font-bold">days</span></p>
+                            </div>
+                            <div class="w-16 h-16 gradient-purple rounded-2xl flex items-center justify-center shadow-lg shadow-purple-300/40">
+                                <span class="text-3xl">📆</span>
+                            </div>
                         </div>
-                        <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-calendar-check text-green-500 text-xl"></i>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-medium">💡 Based on 8 hrs/day</span>
                         </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-gray-400">Based on 8 hrs/day</span>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover-lift">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Entries</p>
-                            <p class="text-3xl font-bold text-gray-900 mt-1">12 <span class="text-lg text-gray-400">items</span></p>
+                <div class="cute-card p-6 hover-lift relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-orange-100 rounded-full opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-gray-500 flex items-center gap-1">📝 Entries</p>
+                                <p class="text-4xl font-extrabold text-gray-800 mt-1">12 <span class="text-lg text-orange-400 font-bold">items</span></p>
+                            </div>
+                            <div class="w-16 h-16 gradient-orange rounded-2xl flex items-center justify-center shadow-lg shadow-orange-300/40">
+                                <span class="text-3xl">📋</span>
+                            </div>
                         </div>
-                        <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-list text-purple-500 text-xl"></i>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full font-medium">🗓️ This month</span>
                         </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-gray-400">This month</span>
                     </div>
                 </div>
             </div>
@@ -132,58 +266,79 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Entry Form -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
-                            <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i class="fas fa-plus-circle text-blue-500 mr-2"></i>
+                    <div class="cute-card overflow-hidden">
+                        <div class="px-6 py-4 border-b-2 border-pink-100 bg-gradient-to-r from-pink-50 via-purple-50 to-white">
+                            <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                                <span class="text-2xl">➕</span>
                                 New Entry
+                                <span class="text-pink-400">🎀</span>
                             </h2>
                         </div>
                         <div class="p-6 space-y-4">
                             <!-- Date -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="far fa-calendar-alt mr-1 text-gray-400"></i>Date
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">
+                                    <span>📅</span>Date
                                 </label>
-                                <input type="date" id="entry-date" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50 hover:bg-white">
+                                <input type="date" id="entry-date" class="cute-input w-full px-4 py-3 text-gray-700 font-medium">
                             </div>
 
                             <!-- Feature Dropdown -->
                             <div class="relative">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-tag mr-1 text-gray-400"></i>Feature
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">
+                                    <span>🏷️</span>Feature
                                 </label>
-                                <button onclick="toggleDropdown('feature')" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white focus:ring-2 focus:ring-blue-500 flex items-center justify-between transition-all">
-                                    <span id="selected-feature" class="text-gray-700">Select Feature</span>
-                                    <i class="fas fa-chevron-down text-gray-400 transition-transform" id="feature-arrow"></i>
+                                <button onclick="toggleDropdown('feature')" class="cute-input w-full px-4 py-3 flex items-center justify-between text-gray-700 font-medium bg-gradient-to-b from-white to-pink-50/50">
+                                    <span id="selected-feature">Select Feature ✨</span>
+                                    <i class="fas fa-chevron-down text-pink-400 transition-transform" id="feature-arrow"></i>
                                 </button>
-                                <div id="feature-dropdown" class="dropdown-content absolute z-20 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-100 max-h-60 overflow-auto">
-                                    <div class="p-2">
-                                        <div onclick="selectFeature('0000000-Others / Support')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">0000000-Others / Support</div>
-                                        <div onclick="selectFeature('Internal Project')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Internal Project</div>
-                                        <div onclick="selectFeature('Client Project A')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Client Project A</div>
-                                        <div onclick="selectFeature('Client Project B')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Client Project B</div>
+                                <div id="feature-dropdown" class="dropdown-content absolute z-20 w-full mt-2 cute-card max-h-60 overflow-auto border-2 border-pink-100">
+                                    <div class="p-2 space-y-1">
+                                        <div onclick="selectFeature('0000000-Others / Support')" class="px-4 py-3 rounded-xl hover:bg-pink-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🛠️</span> 0000000-Others / Support
+                                        </div>
+                                        <div onclick="selectFeature('Internal Project')" class="px-4 py-3 rounded-xl hover:bg-purple-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🏢</span> Internal Project
+                                        </div>
+                                        <div onclick="selectFeature('Client Project A')" class="px-4 py-3 rounded-xl hover:bg-blue-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>👥</span> Client Project A
+                                        </div>
+                                        <div onclick="selectFeature('Client Project B')" class="px-4 py-3 rounded-xl hover:bg-green-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🤝</span> Client Project B
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Activity Dropdown -->
                             <div class="relative">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-tasks mr-1 text-gray-400"></i>Activity
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">
+                                    <span>⚡</span>Activity
                                 </label>
-                                <button onclick="toggleDropdown('activity')" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white focus:ring-2 focus:ring-blue-500 flex items-center justify-between transition-all">
-                                    <span id="selected-activity" class="text-gray-700">Select Activity</span>
-                                    <i class="fas fa-chevron-down text-gray-400 transition-transform" id="activity-arrow"></i>
+                                <button onclick="toggleDropdown('activity')" class="cute-input w-full px-4 py-3 flex items-center justify-between text-gray-700 font-medium bg-gradient-to-b from-white to-purple-50/50">
+                                    <span id="selected-activity">Select Activity 🎯</span>
+                                    <i class="fas fa-chevron-down text-purple-400 transition-transform" id="activity-arrow"></i>
                                 </button>
-                                <div id="activity-dropdown" class="dropdown-content absolute z-20 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-100 max-h-60 overflow-auto">
-                                    <div class="p-2">
-                                        <div onclick="selectActivity('Bug Fixing')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Bug Fixing</div>
-                                        <div onclick="selectActivity('Daily Meeting')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Daily Meeting</div>
-                                        <div onclick="selectActivity('Support Case On Jira')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Support Case On Jira</div>
-                                        <div onclick="selectActivity('Leave')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Leave</div>
-                                        <div onclick="selectActivity('Non-development related meeting')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Non-development related meeting</div>
-                                        <div onclick="selectActivity('Development')" class="px-3 py-2 rounded-lg hover:bg-blue-50 cursor-pointer text-sm text-gray-700 transition-colors">Development</div>
+                                <div id="activity-dropdown" class="dropdown-content absolute z-20 w-full mt-2 cute-card max-h-60 overflow-auto border-2 border-purple-100">
+                                    <div class="p-2 space-y-1">
+                                        <div onclick="selectActivity('Bug Fixing')" class="px-4 py-3 rounded-xl hover:bg-red-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🐛</span> Bug Fixing
+                                        </div>
+                                        <div onclick="selectActivity('Daily Meeting')" class="px-4 py-3 rounded-xl hover:bg-blue-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>👋</span> Daily Meeting
+                                        </div>
+                                        <div onclick="selectActivity('Support Case On Jira')" class="px-4 py-3 rounded-xl hover:bg-yellow-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🎫</span> Support Case On Jira
+                                        </div>
+                                        <div onclick="selectActivity('Leave')" class="px-4 py-3 rounded-xl hover:bg-green-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>🏖️</span> Leave
+                                        </div>
+                                        <div onclick="selectActivity('Non-development related meeting')" class="px-4 py-3 rounded-xl hover:bg-orange-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>☕</span> Non-development meeting
+                                        </div>
+                                        <div onclick="selectActivity('Development')" class="px-4 py-3 rounded-xl hover:bg-purple-50 cursor-pointer text-sm font-medium text-gray-700 transition-all flex items-center gap-2">
+                                            <span>💻</span> Development
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -191,27 +346,28 @@
                             <!-- Time Input -->
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Hours</label>
-                                    <input type="number" min="0" max="24" value="0" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all text-center font-semibold">
+                                    <label class="block text-sm font-bold text-gray-600 mb-2">⏰ Hours</label>
+                                    <input type="number" min="0" max="24" value="0" class="cute-input w-full px-4 py-3 text-center font-bold text-xl text-gray-800">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Minutes</label>
-                                    <input type="number" min="0" max="59" value="0" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all text-center font-semibold">
+                                    <label class="block text-sm font-bold text-gray-600 mb-2">⏱️ Minutes</label>
+                                    <input type="number" min="0" max="59" value="0" class="cute-input w-full px-4 py-3 text-center font-bold text-xl text-gray-800">
                                 </div>
                             </div>
 
                             <!-- Note -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="far fa-sticky-note mr-1 text-gray-400"></i>Note
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">
+                                    <span>📝</span>Note
                                 </label>
-                                <textarea rows="3" placeholder="Add details..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all resize-none"></textarea>
+                                <textarea rows="3" placeholder="Add some details... ✨" class="cute-input w-full px-4 py-3 resize-none text-gray-700 font-medium"></textarea>
                             </div>
 
                             <!-- Submit Button -->
-                            <button onclick="submitEntry()" class="btn-press w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:from-blue-600 hover:to-blue-700 transition-all flex items-center justify-center gap-2">
-                                <i class="fas fa-save"></i>
+                            <button onclick="submitEntry()" class="btn-press w-full gradient-pink text-white font-bold py-4 rounded-2xl shadow-lg shadow-pink-400/40 hover:shadow-xl transition-all flex items-center justify-center gap-2 text-lg">
+                                <span class="text-xl">💾</span>
                                 Save Entry
+                                <span class="text-xl">✨</span>
                             </button>
                         </div>
                     </div>
@@ -219,107 +375,107 @@
 
                 <!-- Entries Table -->
                 <div class="lg:col-span-2">
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                            <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i class="fas fa-list-alt text-blue-500 mr-2"></i>
-                                Entries - March 2026
+                    <div class="cute-card overflow-hidden">
+                        <div class="px-6 py-4 border-b-2 border-pink-100 bg-gradient-to-r from-pink-50 via-purple-50 to-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                                <span class="text-2xl">📋</span>
+                                Entries - March 2026 🌸
                             </h2>
                             <div class="flex gap-2">
-                                <button onclick="showPage('export')" class="btn-press px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-all text-sm font-medium flex items-center gap-2">
-                                    <i class="fas fa-file-excel"></i>Export
+                                <button onclick="showPage('export')" class="cute-btn px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-sm flex items-center gap-2">
+                                    <span>📊</span>Export
                                 </button>
-                                <select class="px-4 py-2 rounded-lg border border-gray-200 text-sm bg-white focus:ring-2 focus:ring-blue-500">
-                                    <option>March 2026</option>
-                                    <option>February 2026</option>
-                                    <option>January 2026</option>
+                                <select class="cute-input px-4 py-2 text-sm font-medium text-gray-700">
+                                    <option>🗓️ March 2026</option>
+                                    <option>🗓️ February 2026</option>
+                                    <option>🗓️ January 2026</option>
                                 </select>
                             </div>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full">
-                                <thead class="bg-gray-50">
+                                <thead class="bg-gradient-to-r from-pink-100 to-purple-100">
                                     <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Feature</th>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Activity</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Day</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-pink-600 uppercase tracking-wider">📅 Date</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-pink-600 uppercase tracking-wider">🏷️ Feature</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-pink-600 uppercase tracking-wider">⚡ Activity</th>
+                                        <th class="px-4 py-3 text-center text-xs font-bold text-pink-600 uppercase tracking-wider">⏱️ Time</th>
+                                        <th class="px-4 py-3 text-center text-xs font-bold text-pink-600 uppercase tracking-wider">📊 Day</th>
+                                        <th class="px-4 py-3 text-center text-xs font-bold text-pink-600 uppercase tracking-wider">🔧 Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-100">
-                                    <tr class="hover:bg-blue-50/50 transition-colors">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium">20 Mar</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">Internal Project</td>
-                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Development</span></td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center font-semibold">8:00</td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center">1.00</td>
-                                        <td class="px-4 py-3 text-center">
-                                            <button onclick="editEntry(1)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all mr-1">
+                                <tbody class="divide-y-2 divide-pink-50 table-cute">
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-bold text-gray-800">🌸 20 Mar</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600 font-medium">🏢 Internal Project</td>
+                                        <td class="px-4 py-4"><span class="cute-badge bg-purple-100 text-purple-600">💻 Development</span></td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">8:00</td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">1.00</td>
+                                        <td class="px-4 py-4 text-center">
+                                            <button onclick="editEntry(1)" class="text-pink-500 hover:text-pink-600 p-2 rounded-xl hover:bg-pink-100 transition-all mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button onclick="deleteEntry(1)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
+                                            <button onclick="deleteEntry(1)" class="text-red-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-100 transition-all">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="hover:bg-blue-50/50 transition-colors">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium">19 Mar</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">Client Project A</td>
-                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">Bug Fixing</span></td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center font-semibold">4:30</td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center">0.56</td>
-                                        <td class="px-4 py-3 text-center">
-                                            <button onclick="editEntry(2)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all mr-1">
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-bold text-gray-800">💫 19 Mar</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600 font-medium">👥 Client Project A</td>
+                                        <td class="px-4 py-4"><span class="cute-badge bg-orange-100 text-orange-600">🐛 Bug Fixing</span></td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">4:30</td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">0.56</td>
+                                        <td class="px-4 py-4 text-center">
+                                            <button onclick="editEntry(2)" class="text-pink-500 hover:text-pink-600 p-2 rounded-xl hover:bg-pink-100 transition-all mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button onclick="deleteEntry(2)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
+                                            <button onclick="deleteEntry(2)" class="text-red-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-100 transition-all">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="hover:bg-blue-50/50 transition-colors">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium">19 Mar</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">0000000-Others / Support</td>
-                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Daily Meeting</span></td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center font-semibold">1:00</td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center">0.13</td>
-                                        <td class="px-4 py-3 text-center">
-                                            <button onclick="editEntry(3)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all mr-1">
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-bold text-gray-800">✨ 19 Mar</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600 font-medium">🛠️ 0000000-Others</td>
+                                        <td class="px-4 py-4"><span class="cute-badge bg-blue-100 text-blue-600">👋 Daily Meeting</span></td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">1:00</td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">0.13</td>
+                                        <td class="px-4 py-4 text-center">
+                                            <button onclick="editEntry(3)" class="text-pink-500 hover:text-pink-600 p-2 rounded-xl hover:bg-pink-100 transition-all mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button onclick="deleteEntry(3)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
+                                            <button onclick="deleteEntry(3)" class="text-red-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-100 transition-all">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="hover:bg-blue-50/50 transition-colors">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium">18 Mar</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">Client Project B</td>
-                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Support Case</span></td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center font-semibold">2:00</td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center">0.25</td>
-                                        <td class="px-4 py-3 text-center">
-                                            <button onclick="editEntry(4)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all mr-1">
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-bold text-gray-800">🎯 18 Mar</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600 font-medium">🤝 Client Project B</td>
+                                        <td class="px-4 py-4"><span class="cute-badge bg-green-100 text-green-600">🎫 Support Case</span></td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">2:00</td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">0.25</td>
+                                        <td class="px-4 py-4 text-center">
+                                            <button onclick="editEntry(4)" class="text-pink-500 hover:text-pink-600 p-2 rounded-xl hover:bg-pink-100 transition-all mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button onclick="deleteEntry(4)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
+                                            <button onclick="deleteEntry(4)" class="text-red-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-100 transition-all">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="hover:bg-blue-50/50 transition-colors">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium">18 Mar</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600">Internal Project</td>
-                                        <td class="px-4 py-3"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Development</span></td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center font-semibold">5:00</td>
-                                        <td class="px-4 py-3 text-sm text-gray-900 text-center">0.63</td>
-                                        <td class="px-4 py-3 text-center">
-                                            <button onclick="editEntry(5)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all mr-1">
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-bold text-gray-800">🌟 18 Mar</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600 font-medium">🏢 Internal Project</td>
+                                        <td class="px-4 py-4"><span class="cute-badge bg-purple-100 text-purple-600">💻 Development</span></td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">5:00</td>
+                                        <td class="px-4 py-4 text-sm text-gray-800 text-center font-bold">0.63</td>
+                                        <td class="px-4 py-4 text-center">
+                                            <button onclick="editEntry(5)" class="text-pink-500 hover:text-pink-600 p-2 rounded-xl hover:bg-pink-100 transition-all mr-1">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button onclick="deleteEntry(5)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
+                                            <button onclick="deleteEntry(5)" class="text-red-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-100 transition-all">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -327,14 +483,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-                            <span class="text-sm text-gray-500">Showing 5 of 12 entries</span>
+                        <div class="px-6 py-4 border-t-2 border-pink-100 flex items-center justify-between">
+                            <span class="text-sm text-gray-500 font-medium">Showing 5 of 12 entries ✨</span>
                             <div class="flex gap-2">
-                                <button class="px-3 py-1 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-all">Previous</button>
-                                <button class="px-3 py-1 rounded-lg bg-blue-500 text-white text-sm">1</button>
-                                <button class="px-3 py-1 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-all">2</button>
-                                <button class="px-3 py-1 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-all">3</button>
-                                <button class="px-3 py-1 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 transition-all">Next</button>
+                                <button class="page-cute text-gray-400 hover:text-pink-500"><i class="fas fa-chevron-left text-xs"></i></button>
+                                <button class="page-cute active">1</button>
+                                <button class="page-cute text-gray-600">2</button>
+                                <button class="page-cute text-gray-600">3</button>
+                                <button class="page-cute text-gray-400 hover:text-pink-500"><i class="fas fa-chevron-right text-xs"></i></button>
                             </div>
                         </div>
                     </div>
@@ -346,199 +502,194 @@
     <!-- SETTINGS PAGE -->
     <div id="page-settings" class="page-content hidden">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
-                    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                        <i class="fas fa-cog text-blue-500 mr-2"></i>
+            <div class="cute-card overflow-hidden">
+                <div class="px-6 py-4 border-b-2 border-pink-100 bg-gradient-to-r from-pink-50 via-purple-50 to-white">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <span class="text-2xl">⚙️</span>
                         Settings
+                        <span class="text-purple-400">🎀</span>
                     </h2>
                 </div>
                 <div class="p-6">
                     <!-- Profile Section -->
                     <div class="mb-8">
-                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
-                                <i class="fas fa-user text-blue-500 text-sm"></i>
-                            </span>
+                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span class="w-10 h-10 gradient-pink rounded-xl flex items-center justify-center text-white text-lg shadow-lg shadow-pink-300/50">👤</span>
                             Profile Information
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                                <input type="text" value="Art" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all">
+                                <label class="block text-sm font-bold text-gray-600 mb-2">🌸 Full Name</label>
+                                <input type="text" value="Art" class="cute-input w-full px-4 py-3 font-medium text-gray-700">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
-                                <input type="text" value="Development" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all">
+                                <label class="block text-sm font-bold text-gray-600 mb-2">🏢 Department</label>
+                                <input type="text" value="Development" class="cute-input w-full px-4 py-3 font-medium text-gray-700">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Position</label>
-                                <input type="text" value="Senior Developer" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-all">
+                                <label class="block text-sm font-bold text-gray-600 mb-2">💼 Position</label>
+                                <input type="text" value="Senior Developer" class="cute-input w-full px-4 py-3 font-medium text-gray-700">
                             </div>
                         </div>
                     </div>
 
-                    <hr class="border-gray-100 my-6">
+                    <hr class="border-pink-100 my-6 border-2">
 
                     <!-- Feature Presets -->
                     <div class="mb-8">
-                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-2">
-                                <i class="fas fa-tag text-green-500 text-sm"></i>
-                            </span>
+                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span class="w-10 h-10 gradient-green rounded-xl flex items-center justify-center text-white text-lg shadow-lg shadow-green-300/50">🏷️</span>
                             Feature Presets
                         </h3>
-                        <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-4 border-2 border-pink-100">
                             <div class="space-y-2 mb-4" id="feature-list">
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">0000000-Others / Support</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-pink-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🛠️ 0000000-Others / Support</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('feature', 0)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('feature', 0)" class="w-10 h-10 rounded-xl bg-pink-100 text-pink-500 hover:bg-pink-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('feature', 0)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('feature', 0)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Internal Project</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-purple-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🏢 Internal Project</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('feature', 1)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('feature', 1)" class="w-10 h-10 rounded-xl bg-pink-100 text-pink-500 hover:bg-pink-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('feature', 1)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('feature', 1)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Client Project A</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-blue-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">👥 Client Project A</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('feature', 2)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('feature', 2)" class="w-10 h-10 rounded-xl bg-pink-100 text-pink-500 hover:bg-pink-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('feature', 2)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('feature', 2)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Client Project B</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-green-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🤝 Client Project B</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('feature', 3)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('feature', 3)" class="w-10 h-10 rounded-xl bg-pink-100 text-pink-500 hover:bg-pink-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('feature', 3)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('feature', 3)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <input type="text" id="new-feature" placeholder="Add new feature..." class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 text-sm">
-                                <button onclick="addPreset('feature')" class="btn-press px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all text-sm font-medium flex items-center gap-2">
-                                    <i class="fas fa-plus"></i>Add
+                                <input type="text" id="new-feature" placeholder="✨ Add new feature..." class="cute-input flex-1 px-4 py-3 text-sm font-medium">
+                                <button onclick="addPreset('feature')" class="cute-btn px-6 py-3 gradient-pink text-white font-bold flex items-center gap-2">
+                                    <span>➕</span> Add
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <hr class="border-gray-100 my-6">
+                    <hr class="border-pink-100 my-6 border-2">
 
                     <!-- Activity Presets -->
                     <div class="mb-8">
-                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-2">
-                                <i class="fas fa-tasks text-purple-500 text-sm"></i>
-                            </span>
+                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span class="w-10 h-10 gradient-purple rounded-xl flex items-center justify-center text-white text-lg shadow-lg shadow-purple-300/50">⚡</span>
                             Activity Presets
                         </h3>
-                        <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 border-2 border-purple-100">
                             <div class="space-y-2 mb-4" id="activity-list">
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Bug Fixing</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-red-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🐛 Bug Fixing</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 0)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 0)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 0)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 0)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Daily Meeting</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-blue-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">👋 Daily Meeting</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 1)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 1)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 1)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 1)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Support Case On Jira</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-yellow-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🎫 Support Case On Jira</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 2)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 2)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 2)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 2)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Leave</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-green-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">🏖️ Leave</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 3)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 3)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 3)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 3)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Non-development related meeting</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-orange-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">☕ Non-development meeting</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 4)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 4)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 4)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 4)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
-                                    <span class="text-sm text-gray-700">Development</span>
+                                <div class="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border-2 border-purple-100">
+                                    <span class="text-sm font-bold text-gray-700 flex items-center gap-2">💻 Development</span>
                                     <div class="flex gap-2">
-                                        <button onclick="editPreset('activity', 5)" class="text-blue-500 hover:text-blue-700 p-1 rounded hover:bg-blue-50 transition-all">
-                                            <i class="fas fa-edit text-sm"></i>
+                                        <button onclick="editPreset('activity', 5)" class="w-10 h-10 rounded-xl bg-purple-100 text-purple-500 hover:bg-purple-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                        <button onclick="deletePreset('activity', 5)" class="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-all">
-                                            <i class="fas fa-trash text-sm"></i>
+                                        <button onclick="deletePreset('activity', 5)" class="w-10 h-10 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 transition-all flex items-center justify-center">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <input type="text" id="new-activity" placeholder="Add new activity..." class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 text-sm">
-                                <button onclick="addPreset('activity')" class="btn-press px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-all text-sm font-medium flex items-center gap-2">
-                                    <i class="fas fa-plus"></i>Add
+                                <input type="text" id="new-activity" placeholder="⚡ Add new activity..." class="cute-input flex-1 px-4 py-3 text-sm font-medium">
+                                <button onclick="addPreset('activity')" class="cute-btn px-6 py-3 gradient-purple text-white font-bold flex items-center gap-2">
+                                    <span>➕</span> Add
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
-                        <button onclick="showPage('dashboard')" class="btn-press px-6 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-medium">
-                            <i class="fas fa-arrow-left mr-2"></i>Back
+                    <div class="flex justify-end gap-3 pt-4 border-t-2 border-pink-100">
+                        <button onclick="showPage('dashboard')" class="cute-btn px-6 py-3 border-2 border-pink-200 text-gray-600 hover:bg-pink-50 font-bold flex items-center gap-2">
+                            <span>⬅️</span> Back
                         </button>
-                        <button onclick="saveSettings()" class="btn-press px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl transition-all font-medium flex items-center gap-2">
-                            <i class="fas fa-save"></i>Save Settings
+                        <button onclick="saveSettings()" class="cute-btn px-6 py-3 gradient-pink text-white font-bold shadow-lg shadow-pink-400/30 flex items-center gap-2">
+                            <span>💾</span> Save Settings ✨
                         </button>
                     </div>
                 </div>
@@ -549,48 +700,49 @@
     <!-- EXPORT PAGE -->
     <div id="page-export" class="page-content hidden">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-green-50 to-white">
-                    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                        <i class="fas fa-file-excel text-green-500 mr-2"></i>
+            <div class="cute-card overflow-hidden">
+                <div class="px-6 py-4 border-b-2 border-green-100 bg-gradient-to-r from-green-50 via-emerald-50 to-white">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        <span class="text-2xl">📊</span>
                         Export to Excel
+                        <span class="text-green-400">✨</span>
                     </h2>
                 </div>
                 <div class="p-6">
                     <!-- Export Controls -->
-                    <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-6 border-2 border-green-100">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Month</label>
-                                <select id="export-month" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 bg-white">
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3" selected>March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
-                                    <option value="7">July</option>
-                                    <option value="8">August</option>
-                                    <option value="9">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">📅 Month</label>
+                                <select id="export-month" class="cute-input w-full px-4 py-3 font-medium">
+                                    <option value="1">🗓️ January</option>
+                                    <option value="2">🗓️ February</option>
+                                    <option value="3" selected>🗓️ March</option>
+                                    <option value="4">🗓️ April</option>
+                                    <option value="5">🗓️ May</option>
+                                    <option value="6">🗓️ June</option>
+                                    <option value="7">🗓️ July</option>
+                                    <option value="8">🗓️ August</option>
+                                    <option value="9">🗓️ September</option>
+                                    <option value="10">🗓️ October</option>
+                                    <option value="11">🗓️ November</option>
+                                    <option value="12">🗓️ December</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Year</label>
-                                <select id="export-year" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 bg-white">
+                                <label class="block text-sm font-bold text-gray-600 mb-2 flex items-center gap-1">📆 Year</label>
+                                <select id="export-year" class="cute-input w-full px-4 py-3 font-medium">
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
                                     <option value="2026" selected>2026</option>
                                 </select>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="previewExport()" class="btn-press flex-1 px-4 py-2.5 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all font-medium flex items-center justify-center gap-2">
-                                    <i class="fas fa-eye"></i>Preview
+                                <button onclick="previewExport()" class="cute-btn flex-1 px-4 py-3 gradient-blue text-white font-bold flex items-center justify-center gap-2">
+                                    <span>👁️</span> Preview
                                 </button>
-                                <button onclick="downloadExcel()" class="btn-press flex-1 px-4 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl shadow-lg shadow-green-500/30 hover:shadow-xl transition-all font-medium flex items-center justify-center gap-2">
-                                    <i class="fas fa-download"></i>Download
+                                <button onclick="downloadExcel()" class="cute-btn flex-1 px-4 py-3 gradient-green text-white font-bold shadow-lg shadow-green-400/30 flex items-center justify-center gap-2">
+                                    <span>⬇️</span> Download
                                 </button>
                             </div>
                         </div>
@@ -598,96 +750,94 @@
 
                     <!-- Preview Section -->
                     <div class="mb-4">
-                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 flex items-center">
-                            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
-                                <i class="fas fa-table text-blue-500 text-sm"></i>
-                            </span>
-                            Preview - March 2026
+                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span class="w-10 h-10 gradient-blue rounded-xl flex items-center justify-center text-white text-lg shadow-lg shadow-blue-300/50">📋</span>
+                            Preview - March 2026 🌸
                         </h3>
                     </div>
 
                     <!-- Excel Preview Table -->
-                    <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <div class="overflow-x-auto rounded-2xl border-2 border-green-100">
                         <table class="w-full text-sm">
-                            <thead class="bg-green-50">
+                            <thead class="bg-gradient-to-r from-green-400 to-emerald-500 text-white">
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-green-800 border-b border-green-200">Name:</th>
-                                    <th colspan="6" class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-green-200">Art</th>
+                                    <th class="px-4 py-3 text-left font-bold">👤 Name:</th>
+                                    <th colspan="6" class="px-4 py-3 text-left font-bold">Art 🌸</th>
                                 </tr>
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-green-800 border-b border-green-200">Department:</th>
-                                    <th colspan="6" class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-green-200">Development</th>
+                                    <th class="px-4 py-3 text-left font-bold">🏢 Department:</th>
+                                    <th colspan="6" class="px-4 py-3 text-left font-bold">Development ✨</th>
                                 </tr>
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-green-800 border-b border-green-200">Position:</th>
-                                    <th colspan="6" class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-green-200">Senior Developer</th>
+                                    <th class="px-4 py-3 text-left font-bold">💼 Position:</th>
+                                    <th colspan="6" class="px-4 py-3 text-left font-bold">Senior Developer 💪</th>
                                 </tr>
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-green-800 border-b border-green-200">Month:</th>
-                                    <th colspan="6" class="px-4 py-3 text-left font-semibold text-gray-900 border-b border-green-200">March 2026</th>
+                                    <th class="px-4 py-3 text-left font-bold">📅 Month:</th>
+                                    <th colspan="6" class="px-4 py-3 text-left font-bold">March 2026 🗓️</th>
                                 </tr>
-                                <tr><td colspan="7" class="h-4"></td></tr>
-                                <tr class="bg-green-600 text-white">
-                                    <th class="px-4 py-3 text-left font-semibold">Date</th>
-                                    <th class="px-4 py-3 text-left font-semibold">Feature</th>
-                                    <th class="px-4 py-3 text-left font-semibold">Activity</th>
-                                    <th class="px-4 py-3 text-center font-semibold">Day</th>
-                                    <th class="px-4 py-3 text-center font-semibold">Hours</th>
-                                    <th class="px-4 py-3 text-center font-semibold">Minutes</th>
-                                    <th class="px-4 py-3 text-left font-semibold">Note</th>
+                                <tr><td colspan="7" class="h-4 bg-green-50"></td></tr>
+                                <tr class="bg-gradient-to-r from-green-500 to-emerald-600">
+                                    <th class="px-4 py-3 text-left font-bold">📅 Date</th>
+                                    <th class="px-4 py-3 text-left font-bold">🏷️ Feature</th>
+                                    <th class="px-4 py-3 text-left font-bold">⚡ Activity</th>
+                                    <th class="px-4 py-3 text-center font-bold">📊 Day</th>
+                                    <th class="px-4 py-3 text-center font-bold">⏰ Hours</th>
+                                    <th class="px-4 py-3 text-center font-bold">⏱️ Minutes</th>
+                                    <th class="px-4 py-3 text-left font-bold">📝 Note</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr>
-                                    <td class="px-4 py-2.5 text-gray-900">20/03/2026</td>
-                                    <td class="px-4 py-2.5 text-gray-600">Internal Project</td>
-                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">Development</span></td>
-                                    <td class="px-4 py-2.5 text-center font-medium">1.00</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">8</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0</td>
-                                    <td class="px-4 py-2.5 text-gray-500">Working on new feature</td>
+                            <tbody class="divide-y-2 divide-green-50 bg-white">
+                                <tr class="hover:bg-green-50/50 transition-colors">
+                                    <td class="px-4 py-2.5 text-gray-800 font-medium">🌸 20/03/2026</td>
+                                    <td class="px-4 py-2.5 text-gray-600">🏢 Internal Project</td>
+                                    <td class="px-4 py-2.5"><span class="cute-badge bg-purple-100 text-purple-600">💻 Development</span></td>
+                                    <td class="px-4 py-2.5 text-center font-bold">1.00</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">8</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0</td>
+                                    <td class="px-4 py-2.5 text-gray-500">Working on new feature ✨</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-4 py-2.5 text-gray-900">19/03/2026</td>
-                                    <td class="px-4 py-2.5 text-gray-600">Client Project A</td>
-                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 bg-orange-100 text-orange-700 rounded text-xs">Bug Fixing</span></td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0.56</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">4</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">30</td>
-                                    <td class="px-4 py-2.5 text-gray-500">Critical bug fix</td>
+                                <tr class="hover:bg-green-50/50 transition-colors">
+                                    <td class="px-4 py-2.5 text-gray-800 font-medium">💫 19/03/2026</td>
+                                    <td class="px-4 py-2.5 text-gray-600">👥 Client Project A</td>
+                                    <td class="px-4 py-2.5"><span class="cute-badge bg-orange-100 text-orange-600">🐛 Bug Fixing</span></td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0.56</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">4</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">30</td>
+                                    <td class="px-4 py-2.5 text-gray-500">Critical bug fix 🚀</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-4 py-2.5 text-gray-900">19/03/2026</td>
-                                    <td class="px-4 py-2.5 text-gray-600">0000000-Others / Support</td>
-                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Daily Meeting</span></td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0.13</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">1</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0</td>
-                                    <td class="px-4 py-2.5 text-gray-500">Team sync</td>
+                                <tr class="hover:bg-green-50/50 transition-colors">
+                                    <td class="px-4 py-2.5 text-gray-800 font-medium">✨ 19/03/2026</td>
+                                    <td class="px-4 py-2.5 text-gray-600">🛠️ 0000000-Others / Support</td>
+                                    <td class="px-4 py-2.5"><span class="cute-badge bg-blue-100 text-blue-600">👋 Daily Meeting</span></td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0.13</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">1</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0</td>
+                                    <td class="px-4 py-2.5 text-gray-500">Team sync 👥</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-4 py-2.5 text-gray-900">18/03/2026</td>
-                                    <td class="px-4 py-2.5 text-gray-600">Client Project B</td>
-                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">Support Case</span></td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0.25</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">2</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0</td>
-                                    <td class="px-4 py-2.5 text-gray-500">JIRA ticket #1234</td>
+                                <tr class="hover:bg-green-50/50 transition-colors">
+                                    <td class="px-4 py-2.5 text-gray-800 font-medium">🎯 18/03/2026</td>
+                                    <td class="px-4 py-2.5 text-gray-600">🤝 Client Project B</td>
+                                    <td class="px-4 py-2.5"><span class="cute-badge bg-green-100 text-green-600">🎫 Support Case</span></td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0.25</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">2</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0</td>
+                                    <td class="px-4 py-2.5 text-gray-500">JIRA ticket #1234 🎫</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-4 py-2.5 text-gray-900">18/03/2026</td>
-                                    <td class="px-4 py-2.5 text-gray-600">Internal Project</td>
-                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">Development</span></td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0.63</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">5</td>
-                                    <td class="px-4 py-2.5 text-center font-medium">0</td>
-                                    <td class="px-4 py-2.5 text-gray-500">Code review</td>
+                                <tr class="hover:bg-green-50/50 transition-colors">
+                                    <td class="px-4 py-2.5 text-gray-800 font-medium">🌟 18/03/2026</td>
+                                    <td class="px-4 py-2.5 text-gray-600">🏢 Internal Project</td>
+                                    <td class="px-4 py-2.5"><span class="cute-badge bg-purple-100 text-purple-600">💻 Development</span></td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0.63</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">5</td>
+                                    <td class="px-4 py-2.5 text-center font-bold">0</td>
+                                    <td class="px-4 py-2.5 text-gray-500">Code review 🔍</td>
                                 </tr>
-                                <tr class="bg-green-50 font-semibold">
-                                    <td colspan="3" class="px-4 py-3 text-right text-green-800">Total:</td>
-                                    <td class="px-4 py-3 text-center text-green-800">2.57</td>
-                                    <td class="px-4 py-3 text-center text-green-800">20</td>
-                                    <td class="px-4 py-3 text-center text-green-800">30</td>
+                                <tr class="bg-gradient-to-r from-green-100 to-emerald-100 font-bold">
+                                    <td colspan="3" class="px-4 py-3 text-right text-green-700">✨ Total:</td>
+                                    <td class="px-4 py-3 text-center text-green-700">2.57</td>
+                                    <td class="px-4 py-3 text-center text-green-700">20</td>
+                                    <td class="px-4 py-3 text-center text-green-700">30</td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -696,36 +846,36 @@
 
                     <!-- Export Info -->
                     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                        <div class="cute-card p-4 border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-white">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-file-excel text-white"></i>
+                                <div class="w-12 h-12 gradient-blue rounded-xl flex items-center justify-center text-2xl shadow-lg shadow-blue-300/40">
+                                    📊
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">File Format</p>
-                                    <p class="text-xs text-gray-500">.xlsx (Excel 2007+)</p>
+                                    <p class="text-sm font-bold text-gray-800">File Format</p>
+                                    <p class="text-xs text-gray-500 font-medium">.xlsx (Excel 2007+)</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-green-50 rounded-xl p-4 border border-green-100">
+                        <div class="cute-card p-4 border-2 border-green-100 bg-gradient-to-br from-green-50 to-white">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-calculator text-white"></i>
+                                <div class="w-12 h-12 gradient-green rounded-xl flex items-center justify-center text-2xl shadow-lg shadow-green-300/40">
+                                    🧮
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">Auto Calculation</p>
-                                    <p class="text-xs text-gray-500">Days = (Hours+Min/60)/8</p>
+                                    <p class="text-sm font-bold text-gray-800">Auto Calculation</p>
+                                    <p class="text-xs text-gray-500 font-medium">Days = (Hours+Min/60)/8</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                        <div class="cute-card p-4 border-2 border-purple-100 bg-gradient-to-br from-purple-50 to-white">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-info-circle text-white"></i>
+                                <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center text-2xl shadow-lg shadow-purple-300/40">
+                                    📈
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">Total Records</p>
-                                    <p class="text-xs text-gray-500">12 entries this month</p>
+                                    <p class="text-sm font-bold text-gray-800">Total Records</p>
+                                    <p class="text-xs text-gray-500 font-medium">12 entries this month ✨</p>
                                 </div>
                             </div>
                         </div>
@@ -736,50 +886,50 @@
     </div>
 
     <!-- Edit Modal -->
-    <div id="edit-modal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 slide-in">
-            <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white flex items-center justify-between">
-                <h3 class="text-lg font-semibold text-gray-900">Edit Entry</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+    <div id="edit-modal" class="modal fixed inset-0 z-50 items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="cute-card w-full max-w-md mx-4 slide-in border-4 border-pink-200">
+            <div class="px-6 py-4 border-b-2 border-pink-100 bg-gradient-to-r from-pink-50 to-purple-50 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2"><span>✏️</span> Edit Entry</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-pink-500 transition-colors w-10 h-10 rounded-xl hover:bg-pink-100 flex items-center justify-center">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             <div class="p-6 space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                    <input type="date" id="edit-date" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50">
+                    <label class="block text-sm font-bold text-gray-600 mb-2">📅 Date</label>
+                    <input type="date" id="edit-date" class="cute-input w-full px-4 py-3 font-medium">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Feature</label>
-                    <input type="text" id="edit-feature" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50">
+                    <label class="block text-sm font-bold text-gray-600 mb-2">🏷️ Feature</label>
+                    <input type="text" id="edit-feature" class="cute-input w-full px-4 py-3 font-medium">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Activity</label>
-                    <input type="text" id="edit-activity" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50">
+                    <label class="block text-sm font-bold text-gray-600 mb-2">⚡ Activity</label>
+                    <input type="text" id="edit-activity" class="cute-input w-full px-4 py-3 font-medium">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Hours</label>
-                        <input type="number" id="edit-hours" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 text-center">
+                        <label class="block text-sm font-bold text-gray-600 mb-2">⏰ Hours</label>
+                        <input type="number" id="edit-hours" class="cute-input w-full px-4 py-3 text-center font-bold text-xl">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Minutes</label>
-                        <input type="number" id="edit-minutes" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-gray-50 text-center">
+                        <label class="block text-sm font-bold text-gray-600 mb-2">⏱️ Minutes</label>
+                        <input type="number" id="edit-minutes" class="cute-input w-full px-4 py-3 text-center font-bold text-xl">
                     </div>
                 </div>
             </div>
-            <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3">
-                <button onclick="closeModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">Cancel</button>
-                <button onclick="saveEdit()" class="btn-press px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all font-medium">Save Changes</button>
+            <div class="px-6 py-4 border-t-2 border-pink-100 flex justify-end gap-3">
+                <button onclick="closeModal()" class="cute-btn px-5 py-2.5 text-gray-600 font-bold hover:bg-pink-50">❌ Cancel</button>
+                <button onclick="saveEdit()" class="cute-btn px-6 py-2.5 gradient-pink text-white font-bold">💾 Save Changes ✨</button>
             </div>
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 right-4 z-50 transform translate-y-20 opacity-0 transition-all duration-300">
-        <div class="bg-gray-900 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3">
-            <i id="toast-icon" class="fas fa-check-circle text-green-400"></i>
-            <span id="toast-message">Operation successful</span>
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300">
+        <div class="cute-card px-6 py-4 flex items-center gap-3 border-4 border-pink-200">
+            <span id="toast-icon" class="text-2xl">✅</span>
+            <span id="toast-message" class="font-bold text-gray-800">Operation successful!</span>
         </div>
     </div>
 
@@ -798,29 +948,29 @@
             document.getElementById('page-' + pageId).classList.add('fade-in');
 
             // Update nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-blue-600', 'bg-blue-50');
+            document.querySelectorAll('.nav-cute').forEach(btn => {
+                btn.classList.remove('active', 'text-white');
                 btn.classList.add('text-gray-600');
             });
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-                btn.classList.remove('text-blue-600');
-                btn.classList.add('text-gray-500');
+                btn.classList.remove('text-pink-500');
+                btn.classList.add('text-gray-400');
             });
 
             const navBtn = document.getElementById('nav-' + pageId);
             if (navBtn) {
                 navBtn.classList.remove('text-gray-600');
-                navBtn.classList.add('text-blue-600', 'bg-blue-50');
+                navBtn.classList.add('active', 'text-white');
             }
 
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 if (btn.dataset.page === pageId) {
-                    btn.classList.remove('text-gray-500');
-                    btn.classList.add('text-blue-600');
+                    btn.classList.remove('text-gray-400');
+                    btn.classList.add('text-pink-500');
                 }
             });
 
-            console.log('Navigated to:', pageId);
+            console.log('🌸 Navigated to:', pageId);
         }
 
         // Dropdown Functions
@@ -841,17 +991,17 @@
         }
 
         function selectFeature(value) {
-            document.getElementById('selected-feature').textContent = value;
+            document.getElementById('selected-feature').textContent = value + ' ✨';
             document.getElementById('feature-dropdown').classList.remove('active');
             document.getElementById('feature-arrow').style.transform = 'rotate(0deg)';
-            console.log('Selected Feature:', value);
+            console.log('🌸 Selected Feature:', value);
         }
 
         function selectActivity(value) {
-            document.getElementById('selected-activity').textContent = value;
+            document.getElementById('selected-activity').textContent = value + ' 🎯';
             document.getElementById('activity-dropdown').classList.remove('active');
             document.getElementById('activity-arrow').style.transform = 'rotate(0deg)';
-            console.log('Selected Activity:', value);
+            console.log('✨ Selected Activity:', value);
         }
 
         // Close dropdowns when clicking outside
@@ -864,55 +1014,55 @@
 
         // Form Actions
         function submitEntry() {
-            showToast('Entry saved successfully!', 'success');
-            console.log('Entry submitted');
+            showToast('Entry saved successfully! 🎉', 'success');
+            console.log('✨ Entry submitted');
         }
 
         function editEntry(id) {
             document.getElementById('edit-modal').classList.add('active');
-            console.log('Editing entry:', id);
+            console.log('✏️ Editing entry:', id);
         }
 
         function saveEdit() {
             closeModal();
-            showToast('Entry updated successfully!', 'success');
-            console.log('Edit saved');
+            showToast('Entry updated successfully! ✨', 'success');
+            console.log('💾 Edit saved');
         }
 
         function deleteEntry(id) {
-            if (confirm('Are you sure you want to delete this entry?')) {
-                showToast('Entry deleted successfully!', 'success');
-                console.log('Deleted entry:', id);
+            if (confirm('Are you sure you want to delete this entry? 🗑️')) {
+                showToast('Entry deleted successfully! 🗑️', 'success');
+                console.log('🗑️ Deleted entry:', id);
             }
         }
 
         // Settings Functions
         function saveSettings() {
-            showToast('Settings saved successfully!', 'success');
-            console.log('Settings saved');
+            showToast('Settings saved successfully! 💾✨', 'success');
+            console.log('⚙️ Settings saved');
         }
 
         function addPreset(type) {
             const input = document.getElementById('new-' + type);
             const value = input.value.trim();
             if (value) {
-                showToast(`Added new ${type}: ${value}`, 'success');
+                showToast(`Added new ${type}: ${value} ✨`, 'success');
                 input.value = '';
-                console.log('Added', type + ':', value);
+                console.log('➕ Added', type + ':', value);
             } else {
-                showToast('Please enter a value', 'error');
+                showToast('Please enter a value 📝', 'error');
             }
         }
 
         function editPreset(type, index) {
-            console.log('Editing', type, 'at index:', index);
-            showToast(`Edit ${type} - index ${index}`, 'info');
+            console.log('✏️ Editing', type, 'at index:', index);
+            showToast(`Edit ${type} - index ${index} ✏️`, 'info');
         }
 
         function deletePreset(type, index) {
-            if (confirm(`Are you sure you want to delete this ${type}?`)) {
-                showToast(`${type} deleted successfully!`, 'success');
-                console.log('Deleted', type, 'at index:', index);
+            if (confirm(`Are you sure you want to delete this ${type}? 🗑️`)) {
+                showToast(`${type} deleted successfully! ✨`, 'success');
+                console.log('🗑️ Deleted', type, 'at index:', index);
             }
         }
 
@@ -920,15 +1070,15 @@
         function previewExport() {
             const month = document.getElementById('export-month').options[document.getElementById('export-month').selectedIndex].text;
             const year = document.getElementById('export-year').value;
-            showToast(`Preview updated for ${month} ${year}`, 'info');
-            console.log('Preview for:', month, year);
+            showToast(`Preview updated for ${month} ${year} 👁️✨`, 'info');
+            console.log('👁️ Preview for:', month, year);
         }
 
         function downloadExcel() {
             const month = document.getElementById('export-month').options[document.getElementById('export-month').selectedIndex].text;
             const year = document.getElementById('export-year').value;
-            showToast(`Downloading timesheet_${month}_${year}.xlsx...`, 'success');
-            console.log('Downloading Excel for:', month, year);
+            showToast(`Downloading timesheet_${month}_${year}.xlsx... ⬇️✨`, 'success');
+            console.log('⬇️ Downloading Excel for:', month, year);
         }
 
         // Modal Functions
@@ -945,17 +1095,17 @@
             toastMessage.textContent = message;
 
             if (type === 'success') {
-                toastIcon.className = 'fas fa-check-circle text-green-400';
+                toastIcon.textContent = '✅';
             } else if (type === 'error') {
-                toastIcon.className = 'fas fa-exclamation-circle text-red-400';
+                toastIcon.textContent = '❌';
             } else {
-                toastIcon.className = 'fas fa-info-circle text-blue-400';
+                toastIcon.textContent = 'ℹ️';
             }
 
-            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.remove('translate-y-24', 'opacity-0');
 
             setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.add('translate-y-24', 'opacity-0');
             }, 3000);
         }
 
@@ -971,8 +1121,9 @@
             }
         });
 
-        console.log('Timesheet System Mockup Loaded');
-        console.log('Features: Navigation, Dropdowns, Forms, Modals, Toast Notifications');
+        console.log('🌸 Timesheet System - Cute Theme Loaded! ✨');
+        console.log('🎀 Features: Navigation, Dropdowns, Forms, Modals, Toast Notifications');
+        console.log('💖 Made with love for Art! 💖');
     </script>
 </body>
 </html>
