@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#f9fafb"/>
+  
+  <!-- Navigation Bar -->
+  <rect width="1440" height="64" fill="#ffffff"/>
+  <rect y="64" width="1440" height="1" fill="#e5e7eb"/>
+  
+  <!-- Logo Icon -->
+  <rect x="16" y="12" width="40" height="40" rx="10" fill="#2563eb"/>
+  <circle cx="36" cy="32" r="10" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M36 26 L36 32 L40 32" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Logo Text -->
+  <text x="68" y="42" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111827">Timesheet</text>
+  
+  <!-- Nav Buttons -->
+  <rect x="190" y="14" width="110" height="36" rx="8" fill="#eff6ff"/>
+  <text x="225" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#2563eb">Dashboard</text>
+  
+  <rect x="310" y="14" width="100" height="36" rx="8" fill="transparent"/>
+  <text x="345" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Settings</text>
+  
+  <rect x="420" y="14" width="90" height="36" rx="8" fill="transparent"/>
+  <text x="450" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Export</text>
+  
+  <!-- User Avatar -->
+  <circle cx="1400" cy="32" r="20" fill="#3b82f6"/>
+  <text x="1394" y="38" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="white">A</text>
+  
+  <!-- Summary Cards -->
+  <!-- Card 1 - Total Hours -->
+  <rect x="32" y="96" width="330" height="140" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <text x="52" y="130" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Total Hours</text>
+  <text x="52" y="175" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#111827">64</text>
+  <text x="95" y="170" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">hrs</text>
+  <rect x="270" y="110" width="56" height="56" rx="12" fill="#eff6ff"/>
+  <circle cx="298" cy="138" r="14" stroke="#3b82f6" stroke-width="2" fill="none"/>
+  <path d="M298 130 L298 138 L304 138" stroke="#3b82f6" stroke-width="2" fill="none"/>
+  <text x="52" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#22c55e">↑ 12%</text>
+  <text x="95" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#9ca3af">vs last month</text>
+  
+  <!-- Card 2 - Total Days -->
+  <rect x="382" y="96" width="330" height="140" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <text x="402" y="130" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Total Days</text>
+  <text x="402" y="175" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#111827">8</text>
+  <text x="430" y="170" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">days</text>
+  <rect x="620" y="110" width="56" height="56" rx="12" fill="#f0fdf4"/>
+  <rect x="635" y="122" width="26" height="32" rx="4" stroke="#22c55e" stroke-width="2" fill="none"/>
+  <path d="M640 135 L645 140 L655 128" stroke="#22c55e" stroke-width="2" fill="none"/>
+  <text x="402" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#9ca3af">Based on 8 hrs/day</text>
+  
+  <!-- Card 3 - Entries -->
+  <rect x="732" y="96" width="330" height="140" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <text x="752" y="130" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Entries</text>
+  <text x="752" y="175" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#111827">12</text>
+  <text x="785" y="170" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">items</text>
+  <rect x="970" y="110" width="56" height="56" rx="12" fill="#faf5ff"/>
+  <line x1="982" y1="130" x2="1014" y2="130" stroke="#a855f7" stroke-width="2"/>
+  <line x1="982" y1="138" x2="1014" y2="138" stroke="#a855f7" stroke-width="2"/>
+  <line x1="982" y1="146" x2="1000" y2="146" stroke="#a855f7" stroke-width="2"/>
+  <text x="752" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#9ca3af">This month</text>
+  
+  <!-- Entry Form Card -->
+  <rect x="32" y="260" width="440" height="580" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <rect x="32" y="260" width="440" height="56" rx="16" fill="url(#blueGradient)"/>
+  <text x="52" y="295" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111827">New Entry</text>
+  
+  <!-- Form Fields -->
+  <text x="52" y="350" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Date</text>
+  <rect x="52" y="360" width="400" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="68" y="387" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">2026-03-20</text>
+  
+  <text x="52" y="430" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Feature</text>
+  <rect x="52" y="440" width="400" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="68" y="467" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Select Feature</text>
+  <path d="M428 460 L436 468 L444 460" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <text x="52" y="510" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Activity</text>
+  <rect x="52" y="520" width="400" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="68" y="547" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Select Activity</text>
+  <path d="M428 540 L436 548 L444 540" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <text x="52" y="590" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Hours</text>
+  <rect x="52" y="600" width="190" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="137" y="627" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">0</text>
+  
+  <text x="262" y="590" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Minutes</text>
+  <rect x="262" y="600" width="190" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="347" y="627" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">0</text>
+  
+  <text x="52" y="670" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Note</text>
+  <rect x="52" y="680" width="400" height="80" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="68" y="707" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#9ca3af">Add details...</text>
+  
+  <!-- Save Button -->
+  <rect x="52" y="780" width="400" height="48" rx="12" fill="#2563eb"/>
+  <text x="232" y="810" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Save Entry</text>
+  
+  <!-- Entries Table Card -->
+  <rect x="496" y="260" width="912" height="580" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <rect x="496" y="260" width="912" height="56" rx="16" fill="url(#blueGradient)"/>
+  <text x="516" y="295" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111827">Entries - March 2026</text>
+  
+  <!-- Export Button -->
+  <rect x="1120" y="270" width="90" height="36" rx="8" fill="#f0fdf4"/>
+  <text x="1165" y="293" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#22c55e" text-anchor="middle">Export</text>
+  
+  <!-- Month Selector -->
+  <rect x="1220" y="270" width="120" height="36" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="1255" y="293" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">March 2026</text>
+  
+  <!-- Table Headers -->
+  <rect x="496" y="316" width="912" height="44" fill="#f9fafb"/>
+  <text x="516" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280">DATE</text>
+  <text x="616" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280">FEATURE</text>
+  <text x="816" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280">ACTIVITY</text>
+  <text x="1100" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280" text-anchor="middle">TIME</text>
+  <text x="1180" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280" text-anchor="middle">DAY</text>
+  <text x="1280" y="343" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6b7280" text-anchor="middle">ACTIONS</text>
+  
+  <!-- Table Rows -->
+  <!-- Row 1 -->
+  <line x1="496" y1="404" x2="1408" y2="404" stroke="#f3f4f6"/>
+  <text x="516" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">20 Mar</text>
+  <text x="616" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">Internal Project</text>
+  <rect x="816" y="365" width="90" height="24" rx="12" fill="#dbeafe"/>
+  <text x="840" y="382" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#1d4ed8">Development</text>
+  <text x="1100" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">8:00</text>
+  <text x="1180" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827" text-anchor="middle">1.00</text>
+  <text x="1260" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1300" y="380" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <!-- Row 2 -->
+  <line x1="496" y1="448" x2="1408" y2="448" stroke="#f3f4f6"/>
+  <text x="516" y="424" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">19 Mar</text>
+  <text x="616" y="424" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">Client Project A</text>
+  <rect x="816" y="409" width="70" height="24" rx="12" fill="#ffedd5"/>
+  <text x="830" y="426" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#c2410c">Bug Fixing</text>
+  <text x="1100" y="424" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">4:30</text>
+  <text x="1180" y="424" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827" text-anchor="middle">0.56</text>
+  
+  <!-- Row 3 -->
+  <line x1="496" y1="492" x2="1408" y2="492" stroke="#f3f4f6"/>
+  <text x="516" y="468" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">19 Mar</text>
+  <text x="616" y="468" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">0000000-Others / Support</text>
+  <rect x="816" y="453" width="85" height="24" rx="12" fill="#f3e8ff"/>
+  <text x="830" y="470" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#7c3aed">Daily Meeting</text>
+  <text x="1100" y="468" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">1:00</text>
+  <text x="1180" y="468" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827" text-anchor="middle">0.13</text>
+  
+  <!-- Row 4 -->
+  <line x1="496" y1="536" x2="1408" y2="536" stroke="#f3f4f6"/>
+  <text x="516" y="512" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">18 Mar</text>
+  <text x="616" y="512" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">Client Project B</text>
+  <rect x="816" y="497" width="90" height="24" rx="12" fill="#dcfce7"/>
+  <text x="830" y="514" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#15803d">Support Case</text>
+  <text x="1100" y="512" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">2:00</text>
+  <text x="1180" y="512" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827" text-anchor="middle">0.25</text>
+  
+  <!-- Row 5 -->
+  <line x1="496" y1="580" x2="1408" y2="580" stroke="#f3f4f6"/>
+  <text x="516" y="556" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">18 Mar</text>
+  <text x="616" y="556" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#6b7280">Internal Project</text>
+  <rect x="816" y="541" width="90" height="24" rx="12" fill="#dbeafe"/>
+  <text x="840" y="558" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#1d4ed8">Development</text>
+  <text x="1100" y="556" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">5:00</text>
+  <text x="1180" y="556" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827" text-anchor="middle">0.63</text>
+  
+  <!-- Pagination -->
+  <text x="516" y="610" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Showing 5 of 12 entries</text>
+  <rect x="1150" y="595" width="70" height="32" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="1185" y="615" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Previous</text>
+  <rect x="1230" y="595" width="32" height="32" rx="6" fill="#2563eb"/>
+  <text x="1246" y="615" font-family="Inter, system-ui, sans-serif" font-size="12" fill="white" text-anchor="middle">1</text>
+  <rect x="1270" y="595" width="32" height="32" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="1286" y="615" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <rect x="1310" y="595" width="32" height="32" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="1326" y="615" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <rect x="1350" y="595" width="50" height="32" rx="6" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="1375" y="615" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Next</text>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#eff6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

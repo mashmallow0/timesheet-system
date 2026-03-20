@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#f9fafb"/>
+  
+  <!-- Navigation Bar -->
+  <rect width="1440" height="64" fill="#ffffff"/>
+  <rect y="64" width="1440" height="1" fill="#e5e7eb"/>
+  
+  <!-- Logo Icon -->
+  <rect x="16" y="12" width="40" height="40" rx="10" fill="#2563eb"/>
+  <circle cx="36" cy="32" r="10" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M36 26 L36 32 L40 32" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Logo Text -->
+  <text x="68" y="42" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111827">Timesheet</text>
+  
+  <!-- Nav Buttons -->
+  <rect x="190" y="14" width="110" height="36" rx="8" fill="transparent"/>
+  <text x="225" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Dashboard</text>
+  
+  <rect x="310" y="14" width="100" height="36" rx="8" fill="transparent"/>
+  <text x="345" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Settings</text>
+  
+  <rect x="420" y="14" width="90" height="36" rx="8" fill="#f0fdf4"/>
+  <text x="450" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#22c55e">Export</text>
+  
+  <!-- User Avatar -->
+  <circle cx="1400" cy="32" r="20" fill="#3b82f6"/>
+  <text x="1394" y="38" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="white">A</text>
+  
+  <!-- Export Card -->
+  <rect x="240" y="96" width="960" height="780" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <rect x="240" y="96" width="960" height="56" rx="16" fill="url(#greenGradient)"/>
+  <text x="260" y="131" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111827">Export to Excel</text>
+  
+  <!-- Export Controls -->
+  <rect x="260" y="176" width="920" height="100" rx="12" fill="#f9fafb"/>
+  
+  <text x="280" y="210" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Month</text>
+  <rect x="280" y="220" width="280" height="44" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="296" y="247" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">March</text>
+  <path d="M540 235 L548 243 L556 235" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <text x="600" y="210" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Year</text>
+  <rect x="600" y="220" width="280" height="44" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="616" y="247" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">2026</text>
+  <path d="M860 235 L868 243 L876 235" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <rect x="920" y="220" width="120" height="44" rx="10" fill="#2563eb"/>
+  <text x="980" y="247" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">Preview</text>
+  
+  <rect x="1060" y="220" width="100" height="44" rx="10" fill="#22c55e"/>
+  <text x="1110" y="247" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">Download</text>
+  
+  <!-- Preview Section -->
+  <text x="260" y="310" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">PREVIEW - MARCH 2026</text>
+  
+  <!-- Preview Table -->
+  <rect x="260" y="330" width="920" height="400" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  
+  <!-- Header Info -->
+  <rect x="260" y="330" width="920" height="140" fill="#f0fdf4" rx="12"/>
+  <text x="280" y="360" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#166534">Name:</text>
+  <text x="380" y="360" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">Art</text>
+  
+  <text x="280" y="390" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#166534">Department:</text>
+  <text x="380" y="390" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">Development</text>
+  
+  <text x="280" y="420" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#166534">Position:</text>
+  <text x="380" y="420" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">Senior Developer</text>
+  
+  <text x="280" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#166534">Month:</text>
+  <text x="380" y="450" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">March 2026</text>
+  
+  <!-- Table Header -->
+  <rect x="260" y="470" width="920" height="40" fill="#16a34a"/>
+  <text x="280" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white">DATE</text>
+  <text x="400" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white">FEATURE</text>
+  <text x="600" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white">ACTIVITY</text>
+  <text x="850" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">DAY</text>
+  <text x="920" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">HOURS</text>
+  <text x="990" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">MIN</text>
+  <text x="1070" y="495" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="white">NOTE</text>
+  
+  <!-- Table Rows -->
+  <line x1="260" y1="550" x2="1180" y2="550" stroke="#e5e7eb"/>
+  <text x="280" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">20/03/2026</text>
+  <text x="400" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6b7280">Internal Project</text>
+  <rect x="600" y="518" width="90" height="20" rx="10" fill="#dbeafe"/>
+  <text x="615" y="532" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#1d4ed8">Development</text>
+  <text x="850" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">1.00</text>
+  <text x="920" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">8</text>
+  <text x="990" y="530" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0</text>
+  <text x="1070" y="530" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Working on new feature</text>
+  
+  <line x1="260" y1="590" x2="1180" y2="590" stroke="#e5e7eb"/>
+  <text x="280" y="570" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">19/03/2026</text>
+  <text x="400" y="570" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6b7280">Client Project A</text>
+  <rect x="600" y="558" width="70" height="20" rx="10" fill="#ffedd5"/>
+  <text x="610" y="572" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#c2410c">Bug Fixing</text>
+  <text x="850" y="570" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0.56</text>
+  <text x="920" y="570" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">4</text>
+  <text x="990" y="570" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">30</text>
+  <text x="1070" y="570" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Critical bug fix</text>
+  
+  <line x1="260" y1="630" x2="1180" y2="630" stroke="#e5e7eb"/>
+  <text x="280" y="610" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">19/03/2026</text>
+  <text x="400" y="610" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6b7280">0000000-Others / Support</text>
+  <rect x="600" y="598" width="85" height="20" rx="10" fill="#f3e8ff"/>
+  <text x="610" y="612" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#7c3aed">Daily Meeting</text>
+  <text x="850" y="610" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0.13</text>
+  <text x="920" y="610" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">1</text>
+  <text x="990" y="610" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0</text>
+  <text x="1070" y="610" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Team sync</text>
+  
+  <line x1="260" y1="670" x2="1180" y2="670" stroke="#e5e7eb"/>
+  <text x="280" y="650" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">18/03/2026</text>
+  <text x="400" y="650" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6b7280">Client Project B</text>
+  <rect x="600" y="638" width="90" height="20" rx="10" fill="#dcfce7"/>
+  <text x="610" y="652" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#15803d">Support Case</text>
+  <text x="850" y="650" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0.25</text>
+  <text x="920" y="650" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">2</text>
+  <text x="990" y="650" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#111827" text-anchor="middle">0</text>
+  <text x="1070" y="650" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">JIRA ticket #1234</text>
+  
+  <!-- Total Row -->
+  <rect x="260" y="670" width="920" height="40" fill="#f0fdf4"/>
+  <text x="800" y="695" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#166534" text-anchor="end">Total:</text>
+  <text x="850" y="695" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#166534" text-anchor="middle">2.57</text>
+  <text x="920" y="695" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#166534" text-anchor="middle">20</text>
+  <text x="990" y="695" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#166534" text-anchor="middle">30</text>
+  
+  <!-- Info Cards -->
+  <rect x="260" y="760" width="290" height="80" rx="12" fill="#eff6ff" stroke="#dbeafe"/>
+  <rect x="280" y="775" width="40" height="40" rx="8" fill="#2563eb"/>
+  <text x="295" y="800" font-family="Inter, system-ui, sans-serif" font-size="20" fill="white" text-anchor="middle">📄</text>
+  <text x="335" y="792" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">File Format</text>
+  <text x="335" y="810" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">.xlsx (Excel 2007+)</text>
+  
+  <rect x="575" y="760" width="290" height="80" rx="12" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <rect x="595" y="775" width="40" height="40" rx="8" fill="#22c55e"/>
+  <text x="610" y="800" font-family="Inter, system-ui, sans-serif" font-size="20" fill="white" text-anchor="middle">🧮</text>
+  <text x="650" y="792" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">Auto Calculation</text>
+  <text x="650" y="810" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Days = (Hours+Min/60)/8</text>
+  
+  <rect x="890" y="760" width="290" height="80" rx="12" fill="#faf5ff" stroke="#f3e8ff"/>
+  <rect x="910" y="775" width="40" height="40" rx="8" fill="#a855f7"/>
+  <text x="925" y="800" font-family="Inter, system-ui, sans-serif" font-size="20" fill="white" text-anchor="middle">ℹ️</text>
+  <text x="965" y="792" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#111827">Total Records</text>
+  <text x="965" y="810" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">12 entries this month</text>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#f9fafb"/>
+  
+  <!-- Navigation Bar -->
+  <rect width="1440" height="64" fill="#ffffff"/>
+  <rect y="64" width="1440" height="1" fill="#e5e7eb"/>
+  
+  <!-- Logo Icon -->
+  <rect x="16" y="12" width="40" height="40" rx="10" fill="#2563eb"/>
+  <circle cx="36" cy="32" r="10" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M36 26 L36 32 L40 32" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Logo Text -->
+  <text x="68" y="42" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#111827">Timesheet</text>
+  
+  <!-- Nav Buttons -->
+  <rect x="190" y="14" width="110" height="36" rx="8" fill="transparent"/>
+  <text x="225" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Dashboard</text>
+  
+  <rect x="310" y="14" width="100" height="36" rx="8" fill="#eff6ff"/>
+  <text x="345" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#2563eb">Settings</text>
+  
+  <rect x="420" y="14" width="90" height="36" rx="8" fill="transparent"/>
+  <text x="450" y="38" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Export</text>
+  
+  <!-- User Avatar -->
+  <circle cx="1400" cy="32" r="20" fill="#3b82f6"/>
+  <text x="1394" y="38" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="white">A</text>
+  
+  <!-- Settings Card -->
+  <rect x="240" y="96" width="960" height="780" rx="16" fill="#ffffff" stroke="#f3f4f6"/>
+  <rect x="240" y="96" width="960" height="56" rx="16" fill="url(#blueGradient)"/>
+  <text x="260" y="131" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#111827">Settings</text>
+  
+  <!-- Profile Information Section -->
+  <text x="260" y="190" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">PROFILE INFORMATION</text>
+  
+  <text x="260" y="230" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Full Name</text>
+  <rect x="260" y="240" width="460" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="276" y="267" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827">Art</text>
+  
+  <text x="740" y="230" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Department</text>
+  <rect x="740" y="240" width="440" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="756" y="267" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827">Development</text>
+  
+  <text x="260" y="310" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151">Position</text>
+  <rect x="260" y="320" width="920" height="44" rx="10" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="276" y="347" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#111827">Senior Developer</text>
+  
+  <!-- Divider -->
+  <line x1="260" y1="390" x2="1180" y2="390" stroke="#f3f4f6"/>
+  
+  <!-- Feature Presets Section -->
+  <text x="260" y="430" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">FEATURE PRESETS</text>
+  
+  <rect x="260" y="450" width="920" height="200" rx="12" fill="#f9fafb"/>
+  
+  <!-- Feature Items -->
+  <rect x="276" y="466" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="492" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">0000000-Others / Support</text>
+  <text x="1100" y="492" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="492" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="512" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="538" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Internal Project</text>
+  <text x="1100" y="538" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="538" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="558" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="584" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Client Project A</text>
+  <text x="1100" y="584" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="584" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="604" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="630" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Client Project B</text>
+  <text x="1100" y="630" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="630" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <!-- Add Feature Input -->
+  <rect x="276" y="660" width="780" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="685" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#9ca3af">Add new feature...</text>
+  <rect x="1072" y="660" width="92" height="40" rx="8" fill="#2563eb"/>
+  <text x="1118" y="685" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">Add</text>
+  
+  <!-- Divider -->
+  <line x1="260" y1="720" x2="1180" y2="720" stroke="#f3f4f6"/>
+  
+  <!-- Activity Presets Section -->
+  <text x="260" y="760" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">ACTIVITY PRESETS</text>
+  
+  <rect x="260" y="780" width="920" height="280" rx="12" fill="#f9fafb"/>
+  
+  <!-- Activity Items -->
+  <rect x="276" y="796" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="822" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Bug Fixing</text>
+  <text x="1100" y="822" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="822" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="842" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="868" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Daily Meeting</text>
+  <text x="1100" y="868" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="868" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="888" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="914" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Support Case On Jira</text>
+  <text x="1100" y="914" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="914" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="934" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="960" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Leave</text>
+  <text x="1100" y="960" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="960" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <rect x="276" y="980" width="888" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="1006" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Non-development related meeting</text>
+  <text x="1100" y="1006" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#3b82f6">✎</text>
+  <text x="1140" y="1006" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#ef4444">🗑</text>
+  
+  <!-- Add Activity Input -->
+  <rect x="276" y="1040" width="780" height="40" rx="8" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="292" y="1065" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#9ca3af">Add new activity...</text>
+  <rect x="1072" y="1040" width="92" height="40" rx="8" fill="#9333ea"/>
+  <text x="1118" y="1065" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">Add</text>
+  
+  <!-- Action Buttons -->
+  <rect x="850" y="1110" width="120" height="44" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="910" y="1137" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="#374151" text-anchor="middle">Back</text>
+  
+  <rect x="990" y="1110" width="140" height="44" rx="10" fill="#2563eb"/>
+  <text x="1060" y="1137" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">Save Settings</text>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#eff6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
