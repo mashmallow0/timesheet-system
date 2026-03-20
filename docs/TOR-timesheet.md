@@ -59,9 +59,11 @@ Row 6 Header: Date | Feature | Activity | Day | Hours | Minutes | Note | Day
 
 ## 4. Tech Stack
 - **Frontend:** React + Tailwind CSS + Vite
-- **Backend:** Node.js + Express + SQLite3
+- **Backend:** Node.js + Express (lightweight)
 - **Export:** xlsx library (sheetjs)
-- **Storage:** SQLite file (data/timesheet.db)
+- **Storage:** **CSV file** (`data/timesheet.csv`)
+  - Read/Write CSV directly
+  - Backup อัตโนมัติทุกครั้งที่ save (timesheet_backup_[timestamp].csv)
 
 ---
 
