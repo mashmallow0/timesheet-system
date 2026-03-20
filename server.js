@@ -9,6 +9,12 @@ const lockfile = require('proper-lockfile');
 const { body, param, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const { v4: uuidv4 } = require('uuid');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+
+// Initialize DOMPurify for server-side sanitization
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 const app = express();
 const PORT = 3001;
@@ -161,10 +167,13 @@ function writePresets(data) {
   fs.writeFileSync(PRESETS_FILE, JSON.stringify(data, null, 2));
 }
 
-// Input sanitization helper
+// Input sanitization helper with XSS protection
 function sanitizeString(str, maxLength = 500) {
   if (typeof str !== 'string') return '';
-  return str.trim().substring(0, maxLength).replace(/[\x00-\x1F\x7F]/g, '');
+  // First apply DOMPurify to remove any HTML/Script tags
+  const clean = DOMPurify.sanitize(str, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+  // Then remove control characters and limit length
+  return clean.trim().substring(0, maxLength).replace(/[\x00-\x1F\x7F]/g, '');
 }
 
 // ==================== API Routes ====================
